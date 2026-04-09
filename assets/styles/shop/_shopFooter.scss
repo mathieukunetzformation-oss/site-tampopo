@@ -1,0 +1,39 @@
+@use '../abstract/variables' as *;
+
+.shopFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $secondary-color;
+    background-color: $primary-color;
+
+    gap: 10px;
+
+    padding-bottom: 20px;
+
+    &__logo {
+        width: 100px;
+    }
+
+    &__adress {
+
+        color: $primary-color;
+        font-weight: bold;
+        font-size: $sm-fontsize;
+    }
+
+    &__map {
+        border: none;
+        width: 100%;
+        height: 200px;
+    }
+
+    &__number {
+
+        font-size: $md-fontsize;
+    }
+
+    &__hours {
+        text-align: center;
+    }
+}

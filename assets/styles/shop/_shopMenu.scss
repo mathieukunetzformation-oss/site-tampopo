@@ -1,0 +1,166 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+.shopMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+    gap: 20px;
+
+    padding-bottom: 20px;
+
+    &__page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        //page title
+        &__title {}
+
+        //page description
+        &__description {}
+
+        &:last-child {
+
+            //so the line separation doesn't appear on the last cat of the last page
+            .shopMenu__page__category:last-child {
+                border-bottom: none;
+            }
+        }
+
+        &__category {
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+
+            border-bottom: 2px solid $primary-color;
+            padding-bottom: 30px;
+            margin: 0 30px;
+
+            // category title
+            &__title {
+                color: $primary-color;
+                font-size: $lg-fontsize;
+            }
+
+            // category description
+            &__description {
+
+                font-size: $md-fontsize;
+
+            }
+
+            &__product {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                gap: 5px;
+
+                //product title
+                &__title {
+                    display: flex;
+                    align-items: center;
+                    font-size: $sm-fontsize;
+
+                    i {
+
+                        @include respond(lg) {
+                            display: none;
+
+                        }
+                    }
+                }
+
+                //product description
+                &__description {
+                    font-size: $xs-fontsize;
+
+                }
+
+                &__offer {
+                    font-size: $sm-fontsize;
+
+                }
+
+                &__photo {
+
+                    display: none;
+                    height: 150px;
+                    width: 150px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+
+                    @include respond(lg) {
+                        display: inherit;
+
+                    }
+                }
+            }
+        }
+    }
+
+    &__focus {
+
+        position: fixed;
+        top: 100px;
+        z-index: 80;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 20px;
+        margin: 20px;
+        padding: 20px;
+
+        border-radius: 10px;
+        border: 5px solid white;
+        background-color: $bg-color;
+
+        &__img {
+            height: 175px;
+            width: 175px;
+            border-radius: 5px;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        &__title {
+            font-size: $md-fontsize;
+
+            font-style: italic;
+        }
+
+        &__description {
+            text-align: center;
+            margin: 0 10px;
+
+        }
+
+        &__closeBttn {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            color: $primary-color;
+            top: 10px;
+            right: 10px;
+
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+}

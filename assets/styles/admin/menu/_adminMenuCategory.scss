@@ -1,0 +1,142 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+@use 'adminMenu' as *;
+
+.adminMenu__page__element__category {
+
+    margin: 0 $category-margin;
+    width: calc(100% - #{$category-margin * 2});
+
+    position: relative;
+
+    &__dropZone {
+        height: $dropZone-height-category;
+        width: 100%;
+
+        position: absolute;
+        top: calc(-#{$dropZone-height-category} - #{$gap-product-dropZone});
+        z-index: 50;
+
+        border-radius: 15px;
+
+
+        &.bot {
+            // background-color: chocolate;
+            top: auto;
+            bottom: calc(-#{$dropZone-height-category} - #{$gap-product-dropZone});
+            z-index: 25;
+
+        }
+
+        &.hover {
+            animation: pulseColorCategory 1.5s infinite ease-in-out;
+        }
+
+        &.candidate {
+            border: 1px dashed $category-color;
+
+        }
+    }
+
+    &__element {
+        display: flex;
+        flex-direction: column;
+
+        gap: $gap-between-products;
+
+        border: 2px solid $category-color;
+        border-radius: 5px;
+
+        position: relative;
+
+        &__title {
+            display: flex;
+            align-items: center;
+            margin: $category-margin;
+
+            font-size: $md-fontsize;
+            color: $category-color;
+
+            position: relative;
+
+            &__text {
+                max-width: calc(100% - 100px); //limit the max width to the width of the parent - the size of the icons
+                white-space: nowrap; //no line return
+                overflow: hidden; //hide overflow
+                text-overflow: ellipsis; //replace with "..."
+            }
+
+            &__icons {
+
+                position: absolute;
+                right: 0;
+
+                a,
+                i {
+                    text-decoration: none;
+                    color: $category-color;
+                }
+
+                &__moveIcon {
+                    touch-action: none;
+                    cursor: grab;
+                }
+
+                &__collapseBttn {
+                    touch-action: none;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &__newBttn {
+            font-size: $sm-fontsize;
+            text-decoration: none;
+            color: $primary-color;
+            margin: $category-margin;
+
+        }
+
+        &__empty {
+
+            margin: $category-margin;
+
+
+            &__text {
+                font-size: $sm-fontsize;
+
+
+            }
+
+            &__orphanDropZone {
+                //dropzone if category is empty
+                height: $dropZone-height-product;
+                width: 100%;
+
+                position: relative;
+                z-index: 50;
+
+                border-radius: 15px;
+
+                &.hover {
+                    animation: pulseColorProduct 1.5s infinite ease-in-out;
+                }
+
+                &.candidate {
+                    border: 1px dashed $primary-color;
+
+                }
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &.collapsed {
+            > :not(.adminMenu__page__element__category__element__title) {
+                display: none;
+            }
+        }
+    }
+}

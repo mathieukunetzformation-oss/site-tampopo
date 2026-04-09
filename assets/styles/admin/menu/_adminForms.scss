@@ -1,0 +1,262 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    align-items: center;
+
+    &__title {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 20px;
+
+
+        span {
+            color: $primary-color;
+
+            &.category-theme {
+                color: $category-color;
+            }
+
+            &.page-theme {
+                color: $page-color;
+            }
+        }
+    }
+
+    &__container {
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 20px;
+
+        align-items: center;
+
+        &__edit {
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+
+            align-items: center;
+
+            &__photoPreview {
+                //for product photo
+                width: 320px;
+                height: 180px;
+
+                &.photoNotFound {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    font-weight: 700;
+
+                    height: 180px;
+                    padding: 20px;
+                    background-color: $primary-color;
+
+                    &.category-theme {
+                        background-color: $category-color;
+                    }
+
+                    &.page-theme {
+                        background-color: $page-color;
+                    }
+
+                    color: $secondary-color;
+                }
+            }
+
+            &__row {
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                gap: 10px;
+
+                &__label {
+                    color: $primary-color;
+
+                    &.category-theme {
+                        color: $category-color;
+                    }
+
+                    &.page-theme {
+                        color: $page-color;
+                    }
+
+                    font-weight: 700;
+                    font-size: $md-fontsize;
+                }
+
+                &__input {
+
+                    &.titleField {
+                        text-align: center;
+
+                    }
+
+                    &.priceField {
+                        text-align: center;
+
+                    }
+
+                    &.quantityField {
+                        text-align: center;
+                        width: 50px;
+
+                    }
+
+                    &.descriptionField {
+                        width: 300px;
+                        height: 200px;
+                        padding: 5px;
+                        font-size: $sm-fontsize;
+                    }
+
+                    &.categoryField {
+                        text-align: center;
+                        padding: 2px;
+                    }
+
+                    &.orderInCategoryField {
+                        text-align: center;
+                        padding: 2px;
+                    }
+                }
+
+                &__offerItem {
+                    display: flex;
+                    align-items: center;
+                    gap: 25px;
+
+                    &__row {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        gap: 10px;
+
+                        &__label {
+                            color: $primary-color;
+                            font-weight: 700;
+                            font-size: $md-fontsize;
+                        }
+
+                        &__input {
+                            width: 50px;
+                            text-align: center;
+                        }
+                    }
+
+                    &__deleteBttn {
+                        color: $primary-color;
+
+
+                    }
+
+                }
+
+                &.isDisplayedField {
+                    flex-direction: row;
+                }
+
+
+
+            }
+        }
+
+        &__confirm-edit-bttn {
+
+            cursor: pointer;
+
+            padding: 15px 20px;
+            background-color: $primary-color;
+
+            &.category-theme {
+                background-color: $category-color;
+            }
+
+            &.page-theme {
+                background-color: $page-color;
+            }
+
+            border-style: none;
+            border-radius: 5px;
+
+            color: $secondary-color;
+            font-weight: 700;
+            font-size: $md-fontsize;
+        }
+    }
+
+    &__return-bttn {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 40px;
+
+        background-color: $primary-color;
+
+        &.category-theme {
+            background-color: $category-color;
+        }
+
+        &.page-theme {
+            background-color: $page-color;
+        }
+
+        border-style: none;
+        border-radius: 5px;
+
+        text-decoration: none;
+        color: $secondary-color;
+        font-weight: 700;
+        font-size: $sm-fontsize;
+    }
+
+    &__delete-form {
+
+        &__bttn {
+
+            width: 200px;
+            height: 40px;
+
+            background-color: $primary-color;
+
+            &.category-theme {
+                background-color: $category-color;
+            }
+
+            &.page-theme {
+                background-color: $page-color;
+            }
+
+            border-style: none;
+            border-radius: 5px;
+
+            text-decoration: none;
+            color: $secondary-color;
+            font-weight: 700;
+            font-size: $sm-fontsize;
+
+            font-family: inherit; // button style is overwritten without these 
+            cursor: pointer;
+
+            margin-bottom: 20px;
+        }
+    }
+}

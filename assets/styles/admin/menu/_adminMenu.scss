@@ -1,0 +1,179 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+$page-margin : 20px;
+$category-margin : 20px;
+$product-margin : 20px;
+$product-title-margin : 15px;
+
+$gap-product-dropZone :10px;
+
+$dropZone-height-product : 10px;
+$dropZone-height-category : 10px;
+$dropZone-height-page : 10px;
+
+$gap-between-products: $dropZone-height-product + ($gap-product-dropZone * 2);
+$gap-between-categories: $dropZone-height-category + ($gap-product-dropZone * 2);
+$gap-between-pages: $dropZone-height-page + ($gap-product-dropZone * 2);
+
+@keyframes pulseColorPage {
+    0% {
+        background-color: #164f65;
+    }
+
+    50% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: #164f65;
+    }
+}
+
+@keyframes pulseColorCategory {
+    0% {
+        background-color: #2e1665;
+    }
+
+    50% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: #2e1665;
+    }
+}
+
+@keyframes pulseColorProduct {
+    0% {
+        background-color: $primary-color;
+    }
+
+    50% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: $primary-color;
+    }
+}
+
+.dragging {
+    opacity: 0.5;
+    user-select: none;
+    touch-action: none;
+
+}
+
+.dragClone {
+    transform: translate(-100%, -50%);
+    background-color: color-mix(in srgb, $secondary-color 30%, rgb(255, 255, 255));
+
+}
+
+.saveBttn {
+    display: flex;
+    justify-content: center;
+
+    position: fixed;
+    z-index: 100;
+    bottom: 20px;
+    right: 20px;
+
+    padding: 10px;
+
+    border-style: none;
+    border: 2px solid $secondary-color;
+    border-radius: 5px;
+
+    background-color: $primary-color;
+
+    font-size: $md-fontsize;
+    font-weight: bold;
+    color: $secondary-color;
+    cursor: pointer;
+
+    &.hidden {
+        display: none;
+
+    }
+}
+
+.adminMenu {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $gap-between-pages;
+
+    width: 100vw;
+
+    margin-bottom: 100px; //some space for the saveBttn
+
+    &__title {
+        //menu title
+        align-self: center;
+        font-size: $xl-fontsize;
+        color: $primary-color;
+    }
+
+    &__clientView {
+
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+
+
+        &__bttn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+
+            border: 2px solid $primary-color;
+            border-radius: 5px;
+            color: $primary-color;
+            padding: 5px;
+
+            &__img {
+                font-size: $xl-fontsize;
+
+            }
+
+            &__text {
+                font-size: $md-fontsize;
+                width: 150px;
+                text-align: center;
+
+            }
+        }
+    }
+
+    &__newBttn {
+        //new page button
+        text-decoration: none;
+        color: $page-color;
+        font-size: $md-fontsize;
+        margin: $page-margin;
+    }
+
+    &__empty {
+
+        //text when no page has been found
+        &__text {
+            font-size: $sm-fontsize;
+
+
+            color: red; //highlight because this should not be displayed if the things are working properly
+            font-weight: 700;
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+
+}

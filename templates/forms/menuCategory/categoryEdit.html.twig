@@ -1,0 +1,24 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Edit MenuCaetgory
+{% endblock %}
+
+{% block main %}
+	<main data-page-type="editCategoryForm" data-category-id={{form.vars.data.id ? form.vars.data.id : 'null'}} data-page-id={{form.vars.data.page ? form.vars.data.page.id : 'null'}}>
+		<section class="admin-form">
+			<h1 class="admin-form__title ">Édition de la catégorie
+				<span class="category-theme">
+					{{menu_category.getTitle()}}</span>
+			</h1>
+
+			{{ include('forms/menuCategory/_categoryForm.html.twig', {'button_label': 'Appliquer les changements'}) }}
+
+			<a class="admin-form__return-bttn category-theme" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
+
+			{% if not menu_category.isProtected() %}
+				{{ include('forms/menuCategory/_categoryDelete_form.html.twig') }}
+			{% endif %}
+
+		</section>
+	</main>
+{% endblock %}
