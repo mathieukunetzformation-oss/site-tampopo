@@ -1,0 +1,99 @@
+{% extends "shopLandingPage.html.twig" %}
+
+{% block title %}
+	Carte Restaurant Tampopo
+{% endblock %}
+
+
+{% block hero %}
+	<section class="shopHeader__hero">
+		<img class="shopHeader__hero__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt="Logo Tampopo Ramen">
+		<p class="shopHeader__hero__title">Notre Carte</p>
+		<p class="shopHeader__hero__description">Tout nos plats sont réalisés sur place selon les règles traditionnelles de confection.</p>
+	</section>
+{% endblock %}
+
+{% block main %}
+	<main class="shopMenu" data-page-type="shopMenuPage">
+		<div class="shopMenu__focus hidden" id="productGalleryFocus">
+			<div class="shopMenu__focus__img" alt="" id="focusImg"></div>
+			<p class="shopMenu__focus__title" id="focusTitle">Exemple Titre</p>
+			<p class="shopMenu__focus__description" id="focusDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus voluptates inventore tenetur quisquam eius non harum sequi vel ratione, dicta quasitaque voluptatum ducimus odit natus tempora earum? Fuga, doloremque.</p>
+			<i class="shopMenu__focus__closeBttn fa-solid fa-xmark" id="focusCloseBttn"></i>
+		</div>
+		<div class="shopMenu__title"></div>
+		{% if menuPages|length > 0 %}
+			{% for page in menuPages %}
+				{% if page.isPageIsDisplayed() %}
+					<div class="shopMenu__page">
+						{% if page.isTitleIsDisplayed() %}
+							<h2 class="shopMenu__page__title">{{page.getTitle()}}</h2>
+						{% endif %}
+						{% if page.getDescription() %}
+							<p class="shopMenu__page__description">{{page.getDescription()}}</p>
+						{% endif %}
+						{% if page.getCategories()|length > 0 %}
+							{% for category in page.getCategories() %}
+								{% if category.isCategoryIsDisplayed() %}
+									<div class="shopMenu__page__category">
+										<h3 class="shopMenu__page__category__title">{{category.getTitle()}}</h3>
+										{#category title always displayed#}
+										{% if category.getDescription() %}
+											<p class="shopMenu__page__category__description">{{category.getDescription()}}</p>
+										{% endif %}
+										{% if category.getProducts()|length > 0 %}
+											{% for product in category.getProducts() %}
+												<div class="shopMenu__page__category__product">
+													{% if product.getPhoto() %}
+														<div class="shopMenu__page__category__product__photo productPhoto" style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
+													{% endif %}
+													<h4 class="shopMenu__page__category__product__title">{{product.getTitle()}}
+														{% if product.getPhoto() %}
+															<i class="fa-solid fa-camera photoPreview" data-photo-filename="{{ product.photo }}" data-title="{{ product.title }}" data-description="{{ product.description }}"></i>
+															<div style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
+														{% endif %}
+													</h4>
+													<p class="shopMenu__page__category__product__description">{{product.getDescription()}}</p>
+													{% set offers = product.getProductOffers() %}
+
+													{% if offers|length > 0 %}
+														{% if offers|length == 1 and offers[0].getQuantity() <= 1 %}
+															<p class="shopMenu__page__category__product__offer">
+																{{ offers[0].getPrice() }}€
+															</p>
+														{% else %}
+															{% for offer in offers %}
+																<p class="shopMenu__page__category__product__offer">
+																	x
+																	{{ offer.getQuantity() }}
+																	/
+																	{{ offer.getPrice() }}€
+																</p>
+															{% endfor %}
+														{% endif %}
+													{% endif %}
+												</div>
+												{# end of product #}
+											{% endfor %}
+										{% endif %}
+									</div>
+									{# end of category #}
+								{% endif %}
+							{% endfor %}
+							{# end of categories #}
+						{% endif %}
+					</div>
+					{# end of page #}
+				{% endif %}
+			{% endfor %}
+			{# end of menu #}
+
+		{% else %}
+			<p>
+				<b>Oups ! Notre menu se refait sans doute une beauté.</b>
+				Il revient bientôt. Essayez d’actualiser la page pour continuer votre visite.
+			</p>
+		{% endif %}
+
+	</main>
+{% endblock %}

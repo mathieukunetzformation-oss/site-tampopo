@@ -1,0 +1,140 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+@use 'adminMenu' as *;
+
+.adminMenu__page {
+
+    margin: 0 $page-margin;
+    width: calc(100% - #{$page-margin * 2});
+
+    position: relative;
+
+    &__dropZone {
+
+        height: $dropZone-height-page;
+        width: 100%;
+
+        position: absolute;
+        top: calc(-#{$dropZone-height-page} - #{$gap-product-dropZone});
+        z-index: 50;
+
+        border-radius: 15px;
+
+
+        &.bot {
+            top: auto;
+            bottom: calc(-#{$dropZone-height-page} - #{$gap-product-dropZone});
+            z-index: 25;
+
+        }
+
+        &.hover {
+            animation: pulseColorPage 1.5s infinite ease-in-out;
+        }
+
+        &.candidate {
+            border: 1px dashed $page-color;
+        }
+    }
+
+    &__element {
+
+        display: flex;
+        flex-direction: column;
+
+        border: 3px solid $page-color;
+        border-radius: 5px;
+
+        gap: $gap-between-categories;
+
+
+        &__title {
+            display: flex;
+            align-items: center;
+
+            margin: $product-margin;
+
+            font-size: $lg-fontsize;
+            color: $page-color;
+
+            position: relative;
+
+            &__text {
+
+                max-width: calc(100% - 100px); //limit the max width to the width of the parent - the size of the icons
+                white-space: nowrap; //no line return
+                overflow: hidden; //hide overflow
+                text-overflow: ellipsis; //replace with "..."
+            }
+
+            &__icons {
+
+                position: absolute;
+                right: 0;
+
+                a,
+                i {
+                    text-decoration: none;
+                    color: $page-color;
+                }
+
+                &__moveIcon {
+                    touch-action: none;
+                    cursor: grab;
+                }
+
+                &__collapseBttn {
+                    touch-action: none;
+                    cursor: pointer;
+                }
+            }
+
+        }
+
+        &.collapsed {
+            > :not(.adminMenu__page__element__title) {
+                display: none;
+            }
+        }
+
+        &__newBttn {
+            font-size: $md-fontsize;
+            text-decoration: none;
+            color: $category-color;
+            margin: $page-margin;
+        }
+
+        &__empty {
+
+            margin: $product-margin;
+
+            &__text {
+                font-size: $sm-fontsize;
+
+            }
+
+            &__orphanDropZone {
+                height: $dropZone-height-category;
+                width: 100%;
+
+                position: relative;
+                z-index: 50;
+
+                border-radius: 15px;
+
+                &.hover {
+                    animation: pulseColorCategory 1.5s infinite ease-in-out;
+                }
+
+                &.candidate {
+                    border: 1px dashed $category-color;
+
+                }
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+    }
+}

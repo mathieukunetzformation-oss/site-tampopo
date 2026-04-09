@@ -1,0 +1,115 @@
+{% extends 'adminBase.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+
+{% block main %}
+
+
+	<main class="adminMenu" data-page-type="adminMenuPage">
+
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="adminMenu__error-msgs">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<a class="saveBttn hidden">Sauvegarder les changements</a>
+
+		<div class="adminMenu__clientView">
+			<a class="adminMenu__clientView__bttn" href="{{ path('app_shop_menu') }}" target="_blank" rel="noopener noreferrer">
+				<i class="adminMenu__clientView__bttn__img fa-solid fa-eye "></i>
+				<p class="adminMenu__clientView__bttn__text">Aperçu du menu dans un nouvel onglet</p>
+			</a>
+		</div>
+
+		<h2 class="adminMenu__title">Votre Menu</h2>
+
+		{% if menuPages|length > 0 %}
+			{% for page in menuPages %}
+				<div class="adminMenu__page">
+					<div class="adminMenu__page__dropZone dropZone top" data-page-id={{page.getId()}}></div>
+					<div class="adminMenu__page__element draggable collapsed" data-page-id={{page.getId()}}>
+						<div class="adminMenu__page__element__title">
+							<h3 class="adminMenu__page__element__title__text">{{page.getTitle()}}</h3>
+							<div class="adminMenu__page__element__title__icons">
+								<a class="adminMenu__page__element__title__icons__editBttn editBttn fa-solid fa-pen-to-square" href="{{path('app_menu_page_edit',{ id: page.getId() })}}"></a>
+								<i class="adminMenu__page__element__title__icons__moveIcon dragHandle fa-solid fa-up-down-left-right"></i>
+								<i class="adminMenu__page__element__title__icons__collapseBttn collapseBttn fa-solid fa-bars" href=""></i>
+							</div>
+						</div>
+						{% if page.getCategories()|length > 0 %}
+							{% for category in page.getCategories() %}
+								<div class="adminMenu__page__element__category ">
+									<div class="adminMenu__page__element__category__dropZone dropZone top" data-category-id={{category.getId()}}></div>
+									<div class="adminMenu__page__element__category__element collapsed draggable" data-category-id={{category.getId()}}>
+										<div class="adminMenu__page__element__category__element__title">
+											<h3 class="adminMenu__page__element__category__element__title__text">{{category.getTitle()}}</h3>
+											<div class="adminMenu__page__element__category__element__title__icons">
+												<a class="adminMenu__page__element__category__element__title__icons__editBttn editBttn fa-solid fa-pen-to-square" href="{{path('app_menu_category_edit',{ id: category.getId() })}}"></a>
+												<i class="adminMenu__page__element__category__element__title__icons__moveIcon dragHandle fa-solid fa-up-down-left-right"></i>
+												<i class="adminMenu__page__element__category__element__title__icons__collapseBttn collapseBttn fa-solid fa-bars" href=""></i>
+											</div>
+										</div>
+										{% if category.getProducts()|length > 0 %}
+											{% for product in category.getProducts() %}
+												<div class="adminMenu__page__element__category__element__product ">
+													<div class="adminMenu__page__element__category__element__product__dropZone dropZone top" data-product-id={{product.getId()}}></div>
+													<div class="adminMenu__page__element__category__element__product__element draggable" data-product-id={{product.getId()}}>
+														<div class="adminMenu__page__element__category__element__product__element__title">
+															<h4 class="adminMenu__page__element__category__element__product__element__title__text">{{product.getTitle()}}</h4>
+															<div class="adminMenu__page__element__category__element__product__element__title__icons">
+																<a class="adminMenu__page__element__category__element__product__element__title__icons__editBttn editBttn fa-solid fa-pen-to-square" href="{{path('app_menu_product_edit',{ id: product.getId() })}}"></a>
+																<i class="adminMenu__page__element__category__element__product__element__title__icons__moveIcon dragHandle fa-solid fa-up-down-left-right"></i>
+															</div>
+														</div>
+													</div>
+													<div class="adminMenu__page__element__category__element__product__dropZone dropZone bot" data-product-id={{product.getId()}}></div>
+												</div>
+											{% endfor %}
+											<div class="adminMenu__page__element__category__element__empty emptyMsgDiv hidden">
+												<div class="adminMenu__page__element__category__element__empty__orphanDropZone dropZone orphanDZ"></div>
+												<p class="adminMenu__page__element__category__element__empty__text ">Aucun produit n'a été trouvée dans la base de données pour cette catégorie. Ajouter un nouveau produit, déplacer un produit existant ou contacter le webmaster.</p>
+											</div>
+										{% else %}
+											<div class="adminMenu__page__element__category__element__empty emptyMsgDiv">
+												<div class="adminMenu__page__element__category__element__empty__orphanDropZone dropZone orphanDZ"></div>
+												<p class="adminMenu__page__element__category__element__empty__text ">Aucun produit n'a été trouvée dans la base de données pour cette catégorie. Ajouter un nouveau produit, déplacer un produit existant ou contacter le webmaster.</p>
+											</div>
+										{% endif %}
+										<a class="adminMenu__page__element__category__element__newBttn" href="{{path('app_menu_product_new',{category: category.id})}}">
+											<i class="fa-solid fa-plus"></i>Ajouter Produit</a>
+									</div>
+									<div class="adminMenu__page__element__category__dropZone dropZone bot" data-category-id={{category.getId()}}></div>
+
+								</div>
+							{% endfor %}
+							<div class="adminMenu__page__element__empty emptyMsgDiv hidden">
+								<div class="adminMenu__page__element__empty__orphanDropZone dropZone orphanDZ"></div>
+								<p class="adminMenu__page__element__empty__text ">Aucune catégorie n'a été trouvée dans la base de données pour cette page. Ajouter une nouvelle catégorie, déplacer un produit existant ou contacter le webmaster.</p>
+							</div>
+						{% else %}
+							<div class="adminMenu__page__element__empty emptyMsgDiv">
+								<div class="adminMenu__page__element__empty__orphanDropZone dropZone orphanDZ"></div>
+								<p class="adminMenu__page__element__empty__text ">Aucune catégorie n'a été trouvée dans la base de données pour cette page. Ajouter une nouvelle catégorie, déplacer un produit existant ou contacter le webmaster.</p>
+							</div>
+						{% endif %}
+						<a class="adminMenu__page__element__newBttn" href="{{path('app_menu_category_new',{page: page.id})}}">
+							<i class="fa-solid fa-plus"></i>Ajouter Catégorie</a>
+					</div>
+					<div class="adminMenu__page__dropZone dropZone bot" data-page-id={{page.getId()}}></div>
+				</div>
+			{% endfor %}
+			<p class="adminMenu__empty emptyMsgDiv hidden">Aucune page n'a été trouvée dans la base de données. Si cela n'est pas normal veuillez contacter le webmaster. Vous pouvez également créer une nouvelle page avec le bouton ci-après.</p>
+
+		{% else %}
+			<p class="adminMenu__empty emptyMsgDiv">Aucune page n'a été trouvée dans la base de données. Si cela n'est pas normal veuillez contacter le webmaster. Vous pouvez également créer une nouvelle page avec le bouton ci-après.</p>
+		{% endif %}
+		<a class="adminMenu__newBttn" href="{{path('app_menu_page_new')}}">
+			<i class="fa-solid fa-plus"></i>Ajouter Page</a>
+	</main>
+
+{% endblock %}

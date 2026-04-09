@@ -1,0 +1,309 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+
+$burger-icon-height : 60px;
+$burger-row-height : 30px;
+$burger-spacing : 20px;
+
+$navbar-height-desktop : 65px;
+
+
+.shopHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+    min-height: 100dvh;
+    overflow: hidden;
+
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url('/media/photos/ramenx2.png') center/cover no-repeat;
+        filter: blur(2px) brightness(50%);
+        transform: scale(1.1); // prevents blur edge 
+        z-index: -1;
+    }
+
+    &.menuHeader {
+
+        //if on the menu page
+        &::before {
+            background: url('/media/photos/photoMenu.png') center/cover no-repeat;
+        }
+    }
+
+    &__navbar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+
+        &__topbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: auto;
+            gap: 50px;
+
+            background-color: $primary-color;
+            height: $navbar-height-desktop;
+
+            &__link {
+                text-decoration: none;
+                color: $secondary-color;
+                padding: 10px 25px;
+                border-radius: 5px;
+
+                &:hover {
+                    background-color: darken($primary-color, 5%);
+                }
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &__burger {
+
+            position: fixed;
+            z-index: 70;
+            right: $burger-spacing;
+            bottom: $burger-spacing;
+
+
+            &__bttn {
+
+                display: flex;
+                align-items: center;
+                justify-content: center; //just to center the icon
+
+                height: $burger-icon-height;
+                width: $burger-icon-height;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                z-index: 10;
+
+                font-size: $lg-fontsize;
+                color: $secondary-color;
+                background-color: $primary-color;
+                box-shadow: 0px 0px 5px 2px rgb(179, 179, 179);
+                border-radius: 50%;
+
+                cursor: pointer;
+
+            }
+
+            &__link {
+                display: flex;
+
+                position: absolute;
+                z-index: 5;
+                right: 10px; //magic number but can't figure ou tthe math to align
+
+                text-decoration: none;
+
+                transition: bottom 0.3s ease;
+
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                        bottom: calc((60px * ($i - 1)) + 20px);
+                    }
+                }
+
+                &.collapsed {
+
+                    bottom: 10px;
+
+                    p {
+                        color: white;
+                        overflow: hidden;
+                        max-width: 0;
+                        padding: 0;
+                        box-shadow: none;
+                    }
+
+                    i {
+                        box-shadow: none;
+
+                    }
+                }
+
+                i {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+
+                    border-radius: 50%;
+                    position: relative;
+                    background-color: $secondary-color;
+                    color: $primary-color;
+                    box-shadow: 0px 0px 5px 2px rgb(179, 179, 179);
+
+                    padding: 20px;
+
+                    height: $burger-row-height;
+                    width: $burger-row-height;
+
+                    transition: box-shadow 0.3s ease;
+                }
+
+                p {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    position: relative;
+                    text-align: right;
+                    right: 20px;
+
+
+                    max-width: 200px; //needed for animation
+                    padding: 4px 12px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 5px;
+                    box-shadow: 0px 0px 5px 2px rgb(179, 179, 179);
+
+                    font-size: $sm-fontsize;
+                    color: rgb(32, 32, 32);
+                    white-space: nowrap; //prevents line break
+
+                    cursor: pointer;
+
+                    transition: color 0.3s ease,
+                        max-width 0.2s ease,
+                        padding 0.2s ease,
+                        box-shadow 0.3s ease;
+
+                }
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &__logo {
+
+            position: absolute;
+            align-items: center;
+
+
+            height: $navbar-height-desktop;
+            width: $navbar-height-desktop;
+        }
+
+        &__links {
+
+            height: 50px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+
+            a {
+                text-decoration: none;
+                text-transform: uppercase;
+                color: $secondary-color;
+                font-weight: bold;
+
+                padding: 20px;
+                border-radius: 5px;
+
+
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: color-mix(in srgb, $primary-color 80%, black);
+                }
+            }
+        }
+
+        &.scrolled {
+            background-color: $primary-color;
+        }
+
+    }
+
+
+    &__hero {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        flex-shrink: 1;
+        color: $secondary-color;
+        gap: 20px;
+
+        position: relative;
+        z-index: 20;
+        top: 50px;
+
+        &__logo {
+            height: 200px;
+            width: 200px;
+        }
+
+        &__title {
+            font-size: 2.2rem;
+            text-align: center;
+        }
+
+        &__description {
+            text-align: center;
+            font-size: $md-fontsize;
+            padding: 20px;
+        }
+
+        &__adress {
+            text-decoration: none;
+            color: $secondary-color;
+
+            font-size: $lg-fontsize;
+
+        }
+
+        &__hours {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+
+    }
+
+    &__infoMsg {
+
+        position: absolute;
+        top: 0;
+
+
+
+        padding: 20px 40px;
+        width: 100%;
+
+
+        text-align: center;
+        color: $primary-color;
+        background-color: $secondary-color;
+
+        @include respond(lg) {
+            top: $navbar-height-desktop;
+            min-height: $navbar-height-desktop;
+        }
+    }
+}

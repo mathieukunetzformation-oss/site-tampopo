@@ -1,0 +1,36 @@
+@use 'variables' as *;
+
+@mixin respond($size) {
+
+    // Check if breakpoint exists
+    @if map-has-key($breakpoints, $size) {
+        $value: map-get($breakpoints, $size);
+
+        @if $value ==0 {
+            @content; // Mobile first -> no media query needed for xs size (default style)
+        }
+
+        @else {
+            @media (min-width: $value) {
+                @content;
+            }
+        }
+    }
+
+    @else {
+        @error "Breakpoint invalide `#{$size}`. Choix possibles: #{map-keys($breakpoints)}."; //error if the given key doesn't exist
+    }
+}
+
+//Example
+// .element {
+//   padding: 10px; //default applied to xs
+
+//   @include respond(md) { 
+//     padding: 20px;
+//   }
+
+//   @include respond(lg) {
+//     padding: 40px;
+//   }
+// }

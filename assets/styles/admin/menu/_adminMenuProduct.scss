@@ -1,0 +1,92 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+@use 'adminMenu' as *;
+
+.adminMenu__page__element__category__element__product {
+
+    margin: 0 $product-margin;
+    width: calc(100% - #{$product-margin * 2});
+
+    position: relative;
+
+    &__dropZone {
+        height: $dropZone-height-product;
+        width: 100%;
+
+        position: absolute;
+        top: calc(-#{$dropZone-height-product} - #{$gap-product-dropZone});
+        z-index: 50;
+
+        border-radius: 15px;
+
+        &.bot {
+            // background-color: chocolate;
+            top: auto;
+            bottom: calc(-#{$dropZone-height-product} - #{$gap-product-dropZone});
+            z-index: 25;
+
+        }
+
+        &.hover {
+            animation: pulseColorProduct 1.5s infinite ease-in-out;
+        }
+
+        &.candidate {
+            border: 1px dashed $primary-color;
+
+        }
+    }
+
+    &__element {
+        display: flex;
+        flex-direction: column;
+
+        gap: 15px;
+
+        border: 2px solid $primary-color;
+        border-radius: 5px;
+
+        font-size: $sm-fontsize;
+
+        position: relative;
+
+        &__title {
+
+            display: flex;
+            align-items: center;
+            margin: $product-margin;
+
+            font-size: $md-fontsize;
+            color: #2e1665;
+
+            position: relative;
+            color: $primary-color;
+
+            &__text {
+                max-width: calc(100% - 60px); //limit the max width to the width of the parent - the size of the icons
+                white-space: nowrap; //no line return
+                overflow: hidden; //hide overflow
+                text-overflow: ellipsis; //replace with "..."
+            }
+
+            &__icons {
+
+                position: absolute;
+                right: 0;
+
+                a,
+                i {
+                    text-decoration: none;
+                    color: $primary-color;
+                }
+
+                &__moveIcon {
+                    touch-action: none;
+                    cursor: grab;
+                }
+
+
+            }
+        }
+    }
+}

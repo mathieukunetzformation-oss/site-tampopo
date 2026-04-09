@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>
+			{% block title %}Dashboard Tampopo
+			{% endblock %}
+		</title>
+
+		<link rel="icon" type="image/x-icon" href="/media/tampopo-icon.ico"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+
+	<body>
+		{% block header %}
+			<header class="adminHeader">
+				<h1 class="adminHeader__title">Dashboard</h1>
+				<nav
+					class="adminHeader__navbar" id="navbar">
+					<!-- <img class="adminHeader__navbar__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt=""> -->
+					<div class="adminHeader__navbar__links">
+						{% if app.request.attributes.get('_route') != 'app_admin' %}
+							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_admin') }}">Acceuil Admin</a>
+						{% endif %}
+						{% if app.request.attributes.get('_route') != 'app_adminMenuPage' %}
+							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_adminMenuPage') }}">Menu</a>
+						{% endif %}
+						<a class="adminHeader__navbar__links__bttn" href="">Infos générales</a>
+						<a class="adminHeader__navbar__links__bttn" href="">Réservations</a>
+					</div>
+
+				</nav>
+
+			</header>
+		{% endblock %}
+
+		{% block main %}
+			<main class="adminMain" data-page-type="adminLandingPage">
+				<h2 class="adminMain__title">
+					Bienvenue sur votre dashboard. Que souhaitez-vous faire ?
+				</h2>
+				<section class="adminMain__container edit-infos" id="infoSection">
+					<a class="adminMain__container__link" href="{{ path('app_adminMenuPage') }}">
+						<div class="adminMain__container__link__img">
+							<i class="fa-brands fa-readme"></i>
+						</div>
+						<p class="adminMain__container__link__text">Gérer le Menu</p>
+					</a>
+					<a class="adminMain__container__link" href="">
+						<div class="adminMain__container__link__img">
+							<i class="fa-solid fa-info"></i>
+						</div>
+						<p class="adminMain__container__link__text">Gérer les messages</p>
+					</a>
+					<a class="adminMain__container__link" href="">
+						<div class="adminMain__container__link__img">
+							<i class="fa-solid fa-calendar-days"></i>
+						</div>
+						<p class="adminMain__container__link__text">Gérer les réservations (wip)</p>
+					</a>
+
+				</section>
+			</main>
+
+		{% endblock %}
+	</body>
+</html></body></html>

@@ -1,0 +1,24 @@
+// add your SASS styles in this file
+@use 'abstract/base';
+@use 'abstract/fullScreenEffect';
+
+@use 'shop/main';
+@use 'shop/shopLanding';
+@use 'shop/shopHeader';
+@use 'shop/shopFooter';
+@use 'shop/shopMenu';
+
+@use 'sections/infos';
+@use 'sections/photoGallery';
+@use 'admin/adminMain';
+
+
+@use 'admin/menu/adminMenu';
+@use 'admin/menu/adminMenuPage';
+@use 'admin/menu/adminMenuCategory';
+@use 'admin/menu/adminMenuProduct';
+
+//Forms
+@use 'admin/menu/adminForms';
+
+@use 'admin/adminHeader';

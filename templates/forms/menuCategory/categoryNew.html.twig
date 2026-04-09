@@ -1,0 +1,23 @@
+{% extends 'adminBase.html.twig' %}
+
+
+{% block title %}Création d'une nouvelle catégorie
+{% endblock %}
+
+{% block main %}
+	<main data-page-type="newCategoryForm" data-page-id={{form.vars.data.page ? form.vars.data.page.id : 'null'}}>
+
+		<section class="admin-form">
+			<h1 class="admin-form__title ">Création d'une
+				<span class="category-theme">
+					nouvelle catégorie</span>
+			</h1>
+
+			{{ include('forms/menuCategory/_categoryForm.html.twig', {'button_label': 'Confirmer la création de la catégorie'}) }}
+
+			<a class="admin-form__return-bttn category-theme" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
+
+		</section>
+	</main>
+
+{% endblock %}

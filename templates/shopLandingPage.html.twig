@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Restaurant Tampopo Ramen
+			{% endblock %}
+		</title>
+		<link rel="icon" type="image/x-icon" href="/media/tampopo-icon.ico">
+		{% block stylesheets %}
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+		{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+
+	<body>
+		{% block fullScreenEffectsDiv %}
+			<div class="fullScreenEffect" id="fullScreenEffectDiv"></div>
+		{% endblock %}
+
+		{% block header %}
+			<header class="shopHeader">
+
+				{% block shopNavbar %}
+					<nav class="shopHeader__navbar" id="navbar">
+
+						<div class="shopHeader__navbar__topbar hidden" id="topNavBar">
+							{% if app.request.attributes.get('_route') != 'app_shop' %}
+								<a class="shopHeader__navbar__topbar__link " href="{{ path('app_shop') }}">Acceuil
+								</a>
+							{% endif %}
+							{% if app.request.attributes.get('_route') != 'app_shop_menu' %}
+								<a class="shopHeader__navbar__topbar__link " href="{{ path('app_shop_menu') }}">Notre carte
+								</a>
+							{% endif %}
+							<a class="shopHeader__navbar__topbar__link ">Réserver
+							</a>
+							<a class="shopHeader__navbar__topbar__link " href="#footer">Nous trouver
+							</a>
+						</div>
+
+						<div class="shopHeader__navbar__burger" id="burgerMenu">
+							<a class="shopHeader__navbar__burger__bttn">
+								<i class="fa-solid fa-bars" id="burgerIcon"></i>
+							</a>
+							{% if app.request.attributes.get('_route') != 'app_shop' %}
+								<a class="shopHeader__navbar__burger__link collapsed" href="{{ path('app_shop') }}">
+									<p>Accueil</p>
+									<i class="fa-solid fa-house"></i>
+								</a>
+							{% endif %}
+							{% if app.request.attributes.get('_route') != 'app_shop_menu' %}
+								<a class="shopHeader__navbar__burger__link collapsed" href="{{ path('app_shop_menu') }}">
+									<p>Notre carte</p>
+									<i class="fa-solid fa-bowl-food"></i>
+								</a>
+							{% endif %}
+
+							<div class="shopHeader__navbar__burger__link collapsed">
+								<p>Réserver (Bientôt)</p>
+								<i class="fa-solid fa-calendar-days"></i>
+							</div>
+							<a class="shopHeader__navbar__burger__link collapsed" href="#footer">
+								<p>Nous trouver</p>
+								<i class="fa-solid fa-location-dot"></i>
+							</a>
+						</div>
+
+					</nav>
+				{% endblock %}
+
+				{% block hero %}
+					<section class="shopHeader__hero">
+						<img class="shopHeader__hero__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt="Logo Tampopo Ramen">
+						<p class="shopHeader__hero__title">Restaurant Ramen</p>
+						<a class="shopHeader__hero__adress" target="_blank" href="https://maps.app.goo.gl/sT5rPRQSmdAqwhJL7">
+							<i class="fa-solid fa-location-dot"></i>5 rue Thiers, 17000 La Rochelle
+						</a>
+						<p class="shopHeader__hero__hours">
+							Du Mardi au Samedi:
+							<br>
+							12h00-14h30<br>
+							19h00-21h30
+						</p>
+
+					</section>
+				{% endblock %}
+
+				{% block infoMsg %}
+					<div class="shopHeader__infoMsg">
+						Nous serons fermés du 12 au 15 mars !
+					</div>
+				{% endblock %}
+
+			</header>
+		{% endblock %}
+
+		{% block main %}
+			<main class="shopLanding" data-page-type="shopLandingPage">
+				<section class="shopLanding__productGallery">
+					<h2 class="shopLanding__productGallery__title">Bienvenue au Tampopo, votre adresse japonaise incontournable à La Rochelle, située sur la place du Marché.</h2>
+					<div class="shopLanding__productGallery__presentation">
+						<img class="shopLanding__productGallery__presentation__photo" src="{{ asset('media/photos/devanture.jpg') }}" alt="Photo devanture restaurant Tampopo">
+						<div class="shopLanding__productGallery__presentation__text">
+
+							<p class="shopLanding__productGallery__presentation__text__paragraph">Nous mettons à l’honneur l’authenticité et le
+								<strong>savoir-faire artisanal</strong>
+								à travers nos
+								<strong>ramens</strong>
+								préparés avec soin. Nos bouillons, mijotés longuement sur place, révèlent des saveurs riches et profondes qui font toute la différence.</p>
+							<p class="shopLanding__productGallery__presentation__text__paragraph">À la carte, découvrez nos
+								<strong>ramens shoyu, shio et végétariens</strong>, mais également une sélection de spécialités japonaises :
+								<strong>donburi, gyoza ou karaage</strong>
+								et profiter d'une expérience gourmande, chaleureuse et fidèle à l’esprit de la cuisine japonaise.</p>
+						</div>
+
+					</div>
+					<div class="shopLanding__productGallery__focus hidden" id="productGalleryFocus">
+						<div class="shopLanding__productGallery__focus__img" alt="" id="focusImg"></div>
+						<p class="shopLanding__productGallery__focus__title" id="focusTitle">Exemple Titre</p>
+						<p class="shopLanding__productGallery__focus__description" id="focusDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus voluptates inventore tenetur quisquam eius non harum sequi vel ratione, dicta quasitaque voluptatum ducimus odit natus tempora earum? Fuga, doloremque.</p>
+						<i class="shopLanding__productGallery__focus__closeBttn fa-solid fa-xmark" id="focusCloseBttn"></i>
+					</div>
+					<div class="shopLanding__productGallery__grid" id="productGalleryGridPhone">
+						{% for product in productsWithPhotos %}
+							<div class="shopLanding__productGallery__grid__item photoPreview" data-photo-filename="{{ product.photo }}" data-title="{{ product.title }}" data-description="{{ product.description }}" style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
+						{% endfor %}
+					</div>
+					<a class="shopLanding__productGallery__menuLink" href="{{ path('app_shop_menu') }}">Consulter notre carte</a>
+				</section>
+			</main>
+		{% endblock %}
+
+		{% block footer %}
+			<footer class="shopFooter" id="footer"><img class="shopFooter__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt="Logo Tampopo Ramen"><iframe class="shopFooter__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.4592135856037!2d-1.1510041232628345!3d46.16151378664291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480153a94211bd43%3A0x7d9dd0333faf58d3!2s5%20Rue%20Thiers%2C%2017000%20La%20Rochelle!5e0!3m2!1sfr!2sfr!4v1771174781244!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				<a class="shopFooter__adress" href="https://maps.app.goo.gl/sT5rPRQSmdAqwhJL7">
+					<i class="fa-solid fa-location-dot"></i>5 rue Thiers, 17000 La Rochelle</a>
+				<p class="shopFooter__number">05 64 72 42 35</p>
+				<p class="shopFooter__hours">Du Mardi au Samedi:
+					<br>
+					12h00-14h30<br>
+					19h00-21h30</p>{# https://www.instagram.com/tampoporamen.larochelle/ #}</footer>
+		{% endblock %}
+	</body>
+</html>
