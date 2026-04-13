@@ -1,0 +1,16 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Edition Information
+{% endblock %}
+
+{% block main %}
+	<main class="adminContentBlockForm" data-page-type="editContentBlockForm">
+		<h1 class="adminContentBlockForm__title">Edition de l'information :
+			<span>{{content_block.name}}</span>
+		</h1>
+
+		{{ include('forms/contentBlock/_contentBlockForm.html.twig', {'button_label': 'Appliquer'}) }}
+
+		<a href="{{ path('app_admin_content_block_index') }}">Retour à la liste</a>
+	</main>
+{% endblock %}

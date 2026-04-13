@@ -97,13 +97,13 @@ class MenuCategoryType extends AbstractType
     {
         return [
             'row_attr' => [
-                'class' => "admin-form__container__edit__row $field" . "Field category-theme"
+                'class' => "admin-menu-form__container__edit__row $field" . "Field category-theme"
             ],
             'label_attr' => [
-                'class' => "admin-form__container__edit__row__label $field" . "Field category-theme"
+                'class' => "admin-menu-form__container__edit__row__label $field" . "Field category-theme"
             ],
             'attr' => [
-                'class' => "admin-form__container__edit__row__input  $secondClass $field" . "Field category-theme",
+                'class' => "admin-menu-form__container__edit__row__input  $secondClass $field" . "Field category-theme",
             ],
         ];
     }

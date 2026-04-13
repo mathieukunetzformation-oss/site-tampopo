@@ -77,13 +77,13 @@ class MenuPageType extends AbstractType
     {
         return [
             'row_attr' => [
-                'class' => "admin-form__container__edit__row $field" . "Field page-theme"
+                'class' => "admin-menu-form__container__edit__row $field" . "Field page-theme"
             ],
             'label_attr' => [
-                'class' => "admin-form__container__edit__row__label $field" . "Field page-theme"
+                'class' => "admin-menu-form__container__edit__row__label $field" . "Field page-theme"
             ],
             'attr' => [
-                'class' => "admin-form__container__edit__row__input  $secondClass $field" . "Field page-theme",
+                'class' => "admin-menu-form__container__edit__row__input  $secondClass $field" . "Field page-theme",
             ],
         ];
     }

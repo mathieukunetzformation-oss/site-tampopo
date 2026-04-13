@@ -1,0 +1,52 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+.adminInfos {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 40px 0;
+
+    gap: 30px;
+
+    &__form {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 10px;
+
+        &__title {
+            color: $primary-color;
+
+        }
+
+        &__container {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 10px;
+
+
+            &__row {
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                &__input {
+                    text-align: center;
+                    padding: 10px;
+                }
+            }
+        }
+
+
+    }
+}

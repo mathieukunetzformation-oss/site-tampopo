@@ -18,7 +18,7 @@ export function inititializeMenuPageForm(mode) {
     function fetchPages(pageId) {
         console.log("Fetching pages");
 
-        fetch('/admin/menu/page/fetchAll/' + "?pageId=" + pageId)
+        fetch('/admin/menu/page/fetch-all/' + "?pageId=" + pageId)
             .then(response => response.json())
             .then(data => {
                 orderSelect.innerHTML = '';

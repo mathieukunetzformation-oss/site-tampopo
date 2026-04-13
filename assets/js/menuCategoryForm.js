@@ -28,8 +28,7 @@ export function inititializeMenuCategoryForm(mode) {
 
         console.log("Fetching pages");
 
-
-        fetch('/admin/menu/page/fetchAll')
+        fetch('/admin/menu/page/fetch-all')
             .then(response => response.json())
             .then(data => {
                 pageSelect.innerHTML = '';
@@ -70,7 +69,7 @@ export function inititializeMenuCategoryForm(mode) {
 
         if (!pageId) return;
 
-        let route = '/admin/menu/category/by-page/' + pageId + '?categoryId=' + categoryId;
+        let route = '/admin/menu/category/fetch-by-page/' + pageId + '?categoryId=' + categoryId;
 
         fetch(route)
             .then(response => response.json())

@@ -5,15 +5,15 @@
 
 {% block main %}
 	<main data-page-type="editProductForm" data-product-id={{form.vars.data.id ? form.vars.data.id : 'null'}} data-category-id={{form.vars.data.category ? form.vars.data.category.id : 'null'}}>
-		<section class="admin-form">
-			<h1 class="admin-form__title">Édition du produit
+		<section class="admin-menu-form">
+			<h1 class="admin-menu-form__title">Édition du produit
 				<span>
 					{{menu_product.getTitle()}}</span>
 			</h1>
 
 			{{ include('forms/menuProduct/_productForm.html.twig', {'button_label': 'Appliquer les changements'}) }}
 
-			<a class="admin-form__return-bttn" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
+			<a class="admin-menu-form__return-bttn" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
 
 			{{ include('forms/menuProduct/_productDelete_form.html.twig') }}
 		</section>

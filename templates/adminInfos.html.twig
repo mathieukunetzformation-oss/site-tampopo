@@ -1,0 +1,14 @@
+{% extends 'adminBase.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+{% block main %}
+	<main class="adminInfos">
+		{% for contentBlock in contentBlocks %}
+			<a href="{{ path('app_admin_content_block_edit',{ id: contentBlock.getId() })}}">
+				Editer
+				{{contentBlock.getName()}}</a>
+		{% endfor %}
+	</main>
+{% endblock %}

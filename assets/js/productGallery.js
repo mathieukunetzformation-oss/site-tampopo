@@ -39,7 +39,6 @@ export function initializeProductGallery(isMenu) {
     })
 
     window.addEventListener("screenWidthChanged", (e) => {
-        console.log("Custom event received! New width:", e.detail);
         if (e.detail >= getBreakpointWidth('small-laptop')) {
             if (!isMenu) productFocus.classList.toggle("hidden", false);
         }
@@ -72,12 +71,12 @@ function mobileFocusModeOn() {
 function mobileFocusModeOff() {
     applyFullScreenEffect("opaqueWhite", false);
     productFocus.classList.toggle("hidden", true);
-    console.log("Exit focus mode");
+    // console.log("Exit focus mode");
 }
 
 function switchFocusData(title, description, photo) {
 
-    console.log("Focus");
+    // console.log("Focus");
     productFocus.querySelector("#focusImg").style.backgroundImage = `url('/media/photos/produits/${photo}')`;;
     productFocus.querySelector("#focusTitle").textContent = title;
     productFocus.querySelector("#focusDescription").textContent = description;

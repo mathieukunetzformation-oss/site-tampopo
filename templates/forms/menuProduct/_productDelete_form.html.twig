@@ -1,4 +1,4 @@
-<form class="admin-form__delete-form" method="post" action="{{ path('app_menu_product_delete', {'id': menu_product.id}) }}" onsubmit="return confirm('Ce produit sera définitivement supprimer de la base de données. Confirmer la suppression ?');">
+<form class="admin-menu-form__delete-form" method="post" action="{{ path('app_menu_product_delete', {'id': menu_product.id}) }}" onsubmit="return confirm('Ce produit sera définitivement supprimer de la base de données. Confirmer la suppression ?');">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ menu_product.id) }}">
-	<button class="admin-form__delete-form__bttn">Supprimer ce produit</button>
+	<button class="admin-menu-form__delete-form__bttn">Supprimer ce produit</button>
 </form>

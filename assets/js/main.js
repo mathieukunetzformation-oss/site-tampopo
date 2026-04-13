@@ -4,6 +4,9 @@ import { inititializeGlobalVariables, screenWidth, getBreakpointWidth } from './
 //Shop
 import { initializeProductGallery } from './productGallery.js';
 
+//Menu filter
+import { initializeMenuFilter } from './menuFilter.js';
+
 //Burger menu
 import { initializeTopBar, initializeBurgerMenu } from './burgerMenu.js';
 
@@ -15,9 +18,12 @@ import { inititializeMenuProductForm } from './menuProductForm.js';
 import { inititializeMenuCategoryForm } from './menuCategoryForm.js';
 import { inititializeMenuPageForm } from './menuPageForm.js';
 
+//Reservations
+import { initializeReservationIndex } from './adminReservationIndex.js';
+
+
 document.addEventListener('turbo:load', () => {
 
-    console.log("Turbo");
     const main = document.querySelector("main");
     const pageType = main.dataset.pageType;
     navbar = document.getElementById("navbar");
@@ -39,6 +45,7 @@ document.addEventListener('turbo:load', () => {
             console.log("Preparing menu page");
             initializeTopBar();
             initializeBurgerMenu();
+            initializeMenuFilter();
             initializeProductGallery(true);
 
             break;
@@ -92,30 +99,35 @@ document.addEventListener('turbo:load', () => {
             inititializeMenuPageForm("edit");
 
             break;
+        //Dashboard reservation page
+        case "adminReservationPage":
+            console.log("Preparing edit page ");
+
+            initializeReservationIndex();
+
+            break;
         default:
             break;
     }
 });
 
 //#region OnScroll effects
-function addScrollEventListener() {
-    window.addEventListener("scroll", function () {
-        //For the navbar to turn opaque when scrolling down
-
-        if (navbar) {
-            if (screenWidth <= getBreakpointWidth('tablet')) {
-                if (window.scrollY > 100) { // Change number for when effect triggers
-                    navbar.classList.add("scrolled");
-                } else {
-                    navbar.classList.remove("scrolled");
-                }
-            }
-            else {
-                navbar.classList.remove("scrolled");
-            }
-        }
-    });
-}
+// function addScrollEventListener() {
+//     window.addEventListener("scroll", function () {
+//         if (navbar) {
+//             if (screenWidth <= getBreakpointWidth('tablet')) {
+//                 if (window.scrollY > 100) { // Change number for when effect triggers
+//                     navbar.classList.add("scrolled");
+//                 } else {
+//                     navbar.classList.remove("scrolled");
+//                 }
+//             }
+//             else {
+//                 navbar.classList.remove("scrolled");
+//             }
+//         }
+//     });
+// }
 //#endregion
 
 

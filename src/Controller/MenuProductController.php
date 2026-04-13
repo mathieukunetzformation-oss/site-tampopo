@@ -9,11 +9,13 @@ use App\Repository\MenuCategoryRepository;
 use App\Repository\MenuProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/menu/product')]
 final class MenuProductController extends AbstractController
@@ -21,12 +23,13 @@ final class MenuProductController extends AbstractController
     /**
      * Route to new product form
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'app_menu_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MenuProductRepository $productRepo, MenuCategoryRepository $categoryRepo): Response
+    public function newProduct(Request $request, EntityManagerInterface $entityManager, MenuProductRepository $productRepo, MenuCategoryRepository $categoryRepo): Response
     {
         $menuProduct = new MenuProduct();
         $categoryId = $request->query->get('category');   // ?category=id
-        $category = $categoryRepo->find($categoryId);
+        $category = $categoryId ? $categoryRepo->find($categoryId) : $categoryRepo->findOneBy(['isProtected' => true]);
         $menuProduct->setTitle('Nouveau produit');
         $menuProduct->setDescription('Ceci est un exemple de description pour le nouveau produit.');
         $menuProduct->setCategory($category);
@@ -50,7 +53,7 @@ final class MenuProductController extends AbstractController
                     $baseName = "photo__produit__" . $menuProduct->getId();
                     $uploadDir = $this->getParameter('kernel.project_dir') . '/public/media/photos/produits';
 
-                    $existingFiles = glob($uploadDir . '/' . $baseName . '.*'); // find all files with same base name but any extension
+                    $existingFiles = glob($uploadDir . '/' . $baseName . '.*') ?: []; // find all files with same base name but any extension
 
                     foreach ($existingFiles as $existingFile) {
                         if (file_exists($existingFile)) {
@@ -59,7 +62,17 @@ final class MenuProductController extends AbstractController
                     }
 
                     $fileName = $baseName . "." . $file->guessExtension();
-                    $file->move($uploadDir, $fileName);
+
+                    try {
+                        $file->move($uploadDir, $fileName);
+                    } catch (FileException $e) {
+                        $this->addFlash('error', "Erreur lors de l'upload du fichier : " . $e->getMessage());
+
+                        return $this->redirectToRoute('app_menu_product_new', [
+                            'id' => $menuProduct->getId(),
+                        ]);
+                    }
+
                     $menuProduct->setPhoto($fileName);
                 }
 
@@ -87,8 +100,9 @@ final class MenuProductController extends AbstractController
     /**
      * Route to edit product form
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'app_menu_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MenuProduct $menuProduct, MenuProductRepository $productRepo, EntityManagerInterface $entityManager): Response
+    public function editProduct(Request $request, MenuProduct $menuProduct, MenuProductRepository $productRepo, EntityManagerInterface $entityManager): Response
     {
         $originalProductData = clone $menuProduct; //before sub
 
@@ -113,9 +127,9 @@ final class MenuProductController extends AbstractController
                 if ($file) {
 
                     $baseName = "photo__produit__" . $menuProduct->getId();
-                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/media/photos/produits';
+                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/media/photos/products';
 
-                    $existingFiles = glob($uploadDir . '/' . $baseName . '.*'); // find all files with same base name but any extension
+                    $existingFiles = glob($uploadDir . '/' . $baseName . '.*') ?: []; // find all files with same base name but any extension
 
                     foreach ($existingFiles as $existingFile) {
                         if (file_exists($existingFile)) {
@@ -124,6 +138,17 @@ final class MenuProductController extends AbstractController
                     }
 
                     $fileName = $baseName . "." . $file->guessExtension();
+
+                    try {
+                        $file->move($uploadDir, $fileName);
+                    } catch (FileException $e) {
+                        $this->addFlash('error', "Erreur lors de l'upload du fichier : " . $e->getMessage());
+
+                        return $this->redirectToRoute('app_menu_product_edit', [
+                            'id' => $menuProduct->getId(),
+                        ]);
+                    }
+
                     $file->move($uploadDir, $fileName);
                     $menuProduct->setPhoto($fileName);
                 }
@@ -158,6 +183,7 @@ final class MenuProductController extends AbstractController
     /**
      * Reorder products from one or two categories
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function reorderProducts(MenuProductRepository $productRepo, int $initialCategoryId, ?int $targetCategoryId = null)
     {
 
@@ -190,8 +216,9 @@ final class MenuProductController extends AbstractController
     /**
      * Route to delete product form
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'app_menu_product_delete', methods: ['POST'])]
-    public function delete(Request $request, MenuProduct $menuProduct, EntityManagerInterface $entityManager): Response
+    public function deleteProduct(Request $request, MenuProduct $menuProduct, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $menuProduct->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($menuProduct);
@@ -204,7 +231,8 @@ final class MenuProductController extends AbstractController
     /**
      * Route to JsonResponse for choice display ajax fetch
      */
-    #[Route('/by-category/{id}', name: 'admin_products_by_category', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/fetch-by-category/{id}', name: 'admin_products_by_category', methods: ['GET'])]
     public function getProductsByCategory(int $id, Request $request, MenuProductRepository $repo): JsonResponse
     {
         $productId = $request->query->get('productId');
@@ -244,31 +272,31 @@ final class MenuProductController extends AbstractController
         return $this->json($data);
     }
 
-    /**
-     * Route to JsonResponse for product grid ajax fetch
-     */
-    #[Route('/fetch-all-with-photo', name: 'fetch_products_with_photos', methods: ['GET'])]
-    public function getProductsWithPhotos(Request $request, MenuProductRepository $repo): JsonResponse
-    {
+    // /**
+    //  * Route to JsonResponse for product grid ajax fetch
+    //  */
+    // #[Route('/fetch-all-products-with-photo', name: 'fetch_products_with_photos', methods: ['GET'])]
+    // public function getProductsWithPhotos(Request $request, MenuProductRepository $repo): JsonResponse
+    // {
 
-        $products = $repo->createQueryBuilder('p')
-            ->where('p.photo IS NOT NULL')
-            ->andWhere('p.photo != \'\'') // we add that to exclude empty strings
-            ->getQuery()
-            ->getResult();
+    //     $products = $repo->createQueryBuilder('p')
+    //         ->where('p.photo IS NOT NULL')
+    //         ->andWhere('p.photo != \'\'') // we add that to exclude empty strings
+    //         ->getQuery()
+    //         ->getResult();
 
-        $data = [
-            'products' => []
-        ];
+    //     $data = [
+    //         'products' => []
+    //     ];
 
-        foreach ($products as $product) {
-            $data['products'][] = [
-                'photo' => $product->getPhoto(),
-                'title' => $product->getTitle(),
-                'description' => $product->getDescription(),
-            ];
-        }
+    //     foreach ($products as $product) {
+    //         $data['products'][] = [
+    //             'photo' => $product->getPhoto(),
+    //             'title' => $product->getTitle(),
+    //             'description' => $product->getDescription(),
+    //         ];
+    //     }
 
-        return $this->json($data);
-    }
+    //     return $this->json($data);
+    // }
 }

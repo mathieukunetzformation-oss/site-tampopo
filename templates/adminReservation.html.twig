@@ -1,0 +1,140 @@
+{% extends 'adminBase.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+
+{% block main %}
+
+	<main class="adminReservation" data-page-type="adminReservationPage">
+
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="adminReservation__error-msgs">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<h2 class="adminReservation__title">
+			Vos réservations pour le
+			<br>
+			<span>{{ "now"|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")|capitalize }}</span>
+		</h2>
+
+		<div class="adminReservation__viewDate">
+			<label for="viewDate">Voir les réservation pour une autre date:</label>
+			<input type="date" id="viewDate" name="view-date" value="{{ "now"|date("Y-m-d") }}" min="2026-01-01" max="{{ "now +2 years"|date("Y-m-d") }}"/>
+			<p class="adminReservation__viewDate__error" id="dateError">Veuillez sélectionner une date valide.</p>
+		</div>
+
+		<div class="adminReservation__reservations">
+			<a class="adminReservation__reservations__newLink" href="{{ path('app_menu_product_new', { date: "now"|date('Y-m-d') }) }}"></a>
+			<h3 class="adminReservation__reservations__title">
+				Midi</h3>
+			{% if noonReservations is not empty %}
+
+				<table class="adminReservation__reservations__table">
+					<thead class="adminReservation__reservations__table__head">
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Couverts</th>
+							<th scope="col">Heure</th>
+							<th scope="col">Table</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for reservation in noonReservations %}
+							<tr>
+								<th scope="row">
+									<i class="editBttn fa-solid fa-pen-to-square"></i>
+									{{ reservation.firstname }}
+									{{ reservation.surname }}
+								</th>
+								<td>{{ reservation.partysize }}<i class="fa-solid fa-utensils"></i>
+								</td>
+								<td>{{ reservation.time|date("H\\hi") }}</td>
+								<td>
+									{% for table in reservation.reservedTable %}
+										{{ table.getNumber() }}
+										<i class="fa-solid fa-couch"></i>
+										{% if not loop.last %},
+										{% endif %}
+									{% else %}
+										?
+									{% endfor %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+				<p class="adminReservation__reservations__total">
+					{% set total = 0 %}
+					{% for reservation in noonReservations %}
+						{% set total = total + reservation.partysize %}
+					{% endfor %}
+					Nombres de couverts sur le service :
+					{{ total }}</p>
+			{% else %}
+				<p class="adminReservation__reservations__empty emptyMsgDiv">
+					Vous n'avez aucune réservation pour le service de ce midi dans la base de données. Si cela ne semble pas normal, veuillez contacter le webmaster. Vous pouvez également créer une nouvelle réservation avec le bouton ci-dessus.
+				</p>
+			{% endif %}
+
+			<h3 class="adminReservation__reservations__title evening">
+				Soir</h3>
+			{% if eveningReservations is not empty %}
+
+				<table class="adminReservation__reservations__table">
+					<thead class="evening">
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Couverts</th>
+							<th scope="col">Heure</th>
+							<th scope="col">Table</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for reservation in eveningReservations %}
+							<tr>
+								<th scope="row">
+									<i class="editBttn fa-solid fa-pen-to-square evening"></i>
+									{{ reservation.firstname }}
+									{{ reservation.surname }}
+								</th>
+								<td>{{ reservation.partysize }}<i class="fa-solid fa-utensils"></i>
+								</td>
+								<td>{{ reservation.time|date("H\\hi") }}</td>
+								<td>
+									{% for table in reservation.reservedTable %}
+										{{ table.getNumber() }}
+										<i class="fa-solid fa-couch"></i>
+										{% if not loop.last %},
+										{% endif %}
+									{% else %}
+										?
+									{% endfor %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<p class="adminReservation__reservations__total evening">
+					{% set total = 0 %}
+					{% for reservation in eveningReservations %}
+						{% set total = total + reservation.partysize %}
+					{% endfor %}
+					Nombres de couverts sur le service :
+					{{ total }}</p>
+			{% else %}
+				<p class="adminReservation__reservations__empty emptyMsgDiv">
+					Vous n'avez aucune réservation pour le service de ce soir dans la base de données. Si cela ne semble pas normal, veuillez contacter le webmaster. Vous pouvez également créer une nouvelle réservation avec le bouton ci-dessus.
+				</p>
+			{% endif %}
+		</div>
+	</main>
+
+{% endblock %}

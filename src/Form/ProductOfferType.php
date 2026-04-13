@@ -27,13 +27,13 @@ class ProductOfferType extends AbstractType
     {
         return [
             'row_attr' => [
-                'class' => "admin-form__container__edit__row__offerItem__row $field" . "Field"
+                'class' => "admin-menu-form__container__edit__row__offerItem__row $field" . "Field"
             ],
             'label_attr' => [
-                'class' => "admin-form__container__edit__row__offerItem__row__label $field" . "Field"
+                'class' => "admin-menu-form__container__edit__row__offerItem__row__label $field" . "Field"
             ],
             'attr' => [
-                'class' => "admin-form__container__edit__row__offerItem__row__input  $secondClass $field" . "Field",
+                'class' => "admin-menu-form__container__edit__row__offerItem__row__input  $secondClass $field" . "Field",
             ],
         ];
     }
