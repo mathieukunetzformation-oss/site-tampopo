@@ -21,30 +21,30 @@
 	<body>
 		{% block header %}
 			<header class="adminHeader">
-				<h1 class="adminHeader__title">Dashboard</h1>
-				<nav
-					class="adminHeader__navbar" id="navbar">
-					<!-- <img class="adminHeader__navbar__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt=""> -->
+				<img class="adminHeader__logo" src="{{ asset('media/images/logos/logo_tampopo.jpg') }}" alt="">
+				<h1 class="adminHeader__title">
+					<a class="adminHeader__navbar__links__bttn" href="{{ path('app_admin') }}">Tableau de bord</a>
+				</h1>
+				<nav class="adminHeader__navbar" id="navbar">
 					<div class="adminHeader__navbar__links">
-						{% if app.request.attributes.get('_route') != 'app_admin' %}
-							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_admin') }}">Acceuil Admin</a>
-						{% endif %}
 						{% if app.request.attributes.get('_route') != 'app_adminMenuPage' %}
 							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_adminMenuPage') }}">Menu</a>
 						{% endif %}
-						<a class="adminHeader__navbar__links__bttn" href="">Infos générales</a>
-						<a class="adminHeader__navbar__links__bttn" href="">Réservations</a>
+						{% if app.request.attributes.get('_route') != 'app_admin_reservation_index' %}
+							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_admin_reservation_index') }}">Réservations</a>
+						{% endif %}
+						{% if app.request.attributes.get('_route') != 'app_admin_contentblock_index' %}
+							<a class="adminHeader__navbar__links__bttn" href="{{ path('app_admin_content_block_index')}}">Infos générales</a>
+						{% endif %}
 					</div>
-
 				</nav>
-
 			</header>
 		{% endblock %}
 
 		{% block main %}
 			<main class="adminMain" data-page-type="adminLandingPage">
 				<h2 class="adminMain__title">
-					Bienvenue sur votre dashboard. Que souhaitez-vous faire ?
+					Bienvenue sur votre tableau de bord. Que souhaitez-vous faire ?
 				</h2>
 				<section class="adminMain__container edit-infos" id="infoSection">
 					<a class="adminMain__container__link" href="{{ path('app_adminMenuPage') }}">
@@ -53,17 +53,17 @@
 						</div>
 						<p class="adminMain__container__link__text">Gérer le Menu</p>
 					</a>
-					<a class="adminMain__container__link" href="">
-						<div class="adminMain__container__link__img">
-							<i class="fa-solid fa-info"></i>
-						</div>
-						<p class="adminMain__container__link__text">Gérer les messages</p>
-					</a>
-					<a class="adminMain__container__link" href="">
+					<a class="adminMain__container__link" href="{{ path('app_admin_reservation_index') }}">
 						<div class="adminMain__container__link__img">
 							<i class="fa-solid fa-calendar-days"></i>
 						</div>
 						<p class="adminMain__container__link__text">Gérer les réservations (wip)</p>
+					</a>
+					<a class="adminMain__container__link" href="{{ path('app_admin_content_block_index')}}">
+						<div class="adminMain__container__link__img">
+							<i class="fa-solid fa-info"></i>
+						</div>
+						<p class="adminMain__container__link__text">Gérer les informations affichés</p>
 					</a>
 
 				</section>

@@ -1,4 +1,3 @@
-// add your SASS styles in this file
 @use 'abstract/base';
 @use 'abstract/fullScreenEffect';
 
@@ -10,15 +9,19 @@
 
 @use 'sections/infos';
 @use 'sections/photoGallery';
-@use 'admin/adminMain';
 
+@use 'admin/adminLogin';
+@use 'admin/adminMain';
+@use 'admin/adminHeader';
 
 @use 'admin/menu/adminMenu';
 @use 'admin/menu/adminMenuPage';
 @use 'admin/menu/adminMenuCategory';
 @use 'admin/menu/adminMenuProduct';
 
-//Forms
-@use 'admin/menu/adminForms';
+@use 'admin/menu/adminMenuForms';
 
-@use 'admin/adminHeader';
+@use 'admin/infos/adminContentForm';
+@use 'admin/infos/adminInfos';
+
+@use 'admin/reservation/adminReservation';

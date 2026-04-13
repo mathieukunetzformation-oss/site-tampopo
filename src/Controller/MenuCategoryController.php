@@ -18,34 +18,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/admin/menu/category')]
 final class MenuCategoryController extends AbstractController
 {
-
-    #[IsGranted('ROLE_ADMIN')]
-    #[Route('/fetchById/{id}', name: 'admin_fetch_categoriesById', methods: ['GET'])]
-    public function getAllPages(int $id, MenuCategoryRepository $categRepo): JsonResponse
-    {
-        $categories = $categRepo->findBy(
-            ['page' => $id],
-            ['orderInPage' => 'ASC']
-        );
-
-        $data = ['categories' => []];
-
-        foreach ($categories as $category) {
-            $data['categories'][] = [
-                'id' => $category->getId(),
-                'title' => $category->getTitle(),
-                'position' => $category->getOrderInPage(),
-            ];
-        }
-
-        return $this->json($data);
-    }
-
     /**
      * Route to JsonResponse for choice display ajax fetch
      */
-    #[Route('/by-page/{id}', name: 'admin_categories_by_page', methods: ['GET'])]
-    public function getProductsByCategory(int $id, Request $request, MenuCategoryRepository $repo): JsonResponse
+    #[Route('/fetch-by-page/{id}', name: 'admin_categories_by_page', methods: ['GET'])]
+    public function getCategoriesByPage(int $id, Request $request, MenuCategoryRepository $repo): JsonResponse
     {
         $categoryId = $request->query->get('categoryId'); // ?categoryId=x
 
@@ -90,7 +67,8 @@ final class MenuCategoryController extends AbstractController
     {
         $menuCategory = new MenuCategory();
         $pageId = $request->query->get('page');   // ?page=id
-        $page = $pageRepo->find($pageId);
+        $page = $pageId ? $pageRepo->find($pageId) : $pageRepo->findOneBy(['isProtected' => true]);
+
         $menuCategory->setTitle('Nouvelle catégorie');
         $menuCategory->setDescription('Ceci est un exemple de description pour la nouvelle catégorie.');
         $menuCategory->setPage($page);
@@ -190,12 +168,10 @@ final class MenuCategoryController extends AbstractController
             ['orderInPage' => 'ASC']
         );
 
-
         for ($i = 0; $i < count($categoriesFromInitPage); $i++) {
             $category = $categoriesFromInitPage[$i];
             $category->setOrderInPage(($i + 1) * 10);
         }
-
 
         if ($targetPageId) {
             $categoriesFromTargetPage = $categoryRepo->findBy(

@@ -1,6 +1,8 @@
 @use '../abstract/variables' as *;
 @use '../abstract/mixins' as *;
 
+$space-from-edge : 30px;
+
 .shopMenu {
     display: flex;
     flex-direction: column;
@@ -9,13 +11,14 @@
     width: 100vw;
     gap: 20px;
 
-    padding-bottom: 20px;
+    padding-bottom: $space-from-edge;
 
     &__page {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 20px;
+        width: 100%;
 
         //page title
         &__title {}
@@ -23,58 +26,104 @@
         //page description
         &__description {}
 
-        &:last-child {
-
-            //so the line separation doesn't appear on the last cat of the last page
-            .shopMenu__page__category:last-child {
-                border-bottom: none;
-            }
-        }
 
         &__category {
 
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            width: 100%;
+            gap: 30px;
 
+            padding-bottom: $space-from-edge;
+            margin: 0 $space-from-edge;
 
-            border-bottom: 2px solid $primary-color;
-            padding-bottom: 30px;
-            margin: 0 30px;
+            @include respond(md) {}
 
             // category title
             &__title {
                 color: $primary-color;
                 font-size: $lg-fontsize;
+                border-bottom: 2px solid $primary-color;
+
+                padding: 0 $space-from-edge;
+
             }
 
             // category description
             &__description {
 
-                font-size: $md-fontsize;
+                font-size: $sm-fontsize;
+                padding-left: $space-from-edge;
 
             }
 
             &__product {
+
                 display: flex;
                 flex-direction: column;
                 align-items: center;
 
                 gap: 5px;
 
+                padding-left: $space-from-edge;
+
+                @include respond(md) {
+                    width: 100%;
+                    max-width: 750px;
+                    align-items: flex-start;
+
+                }
+
                 //product title
                 &__title {
+
                     display: flex;
+                    flex-direction: column;
                     align-items: center;
                     font-size: $sm-fontsize;
 
-                    i {
+                    @include respond(md) {
+                        width: 100%;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
 
-                        @include respond(lg) {
-                            display: none;
+                    }
+
+                    &__text {
+                        display: flex;
+                        align-items: center;
+
+                        @include respond(md) {
+                            flex-direction: row;
 
                         }
+
+                        i {
+                            align-self: center;
+
+                            @include respond(lg) {
+                                display: none;
+                            }
+                        }
                     }
+
+                    &__offer {
+
+                        display: flex;
+                        flex-direction: column;
+
+                        @include respond(md) {
+
+                            flex-direction: row;
+                            align-self: flex-end;
+                        }
+
+                        &__element {}
+                    }
+
+
                 }
 
                 //product description
@@ -83,10 +132,7 @@
 
                 }
 
-                &__offer {
-                    font-size: $sm-fontsize;
 
-                }
 
                 &__photo {
 
@@ -103,6 +149,10 @@
                     }
                 }
             }
+        }
+
+        &.hidden {
+            display: none;
         }
     }
 
@@ -160,6 +210,64 @@
 
         &.hidden {
             display: none;
+        }
+    }
+
+    &__filterBar {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        gap: 10px;
+
+        &__bttns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            &__item {
+                border-style: none;
+                border-radius: 2px;
+                background-color: $primary-color;
+                color: $secondary-color;
+                padding: 5px 15px;
+
+                font-size: $md-fontsize;
+
+                &:hover {
+                    background-color: darken($primary-color, 5%);
+                }
+
+                &.selected {
+
+                    background-color: $secondary-color;
+                    color: $primary-color;
+                }
+            }
+        }
+
+        &__all {
+            border-style: none;
+            border-radius: 2px;
+
+            background-color: $primary-color;
+            color: $secondary-color;
+            padding: 5px 15px;
+
+            font-size: $md-fontsize;
+
+            &:hover {
+                background-color: darken($primary-color, 5%);
+            }
+
+            &.selected {
+
+                background-color: $secondary-color;
+                color: $primary-color;
+            }
         }
     }
 

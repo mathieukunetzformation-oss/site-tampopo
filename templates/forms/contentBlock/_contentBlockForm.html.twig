@@ -1,0 +1,13 @@
+{{ form_start(form, {'attr': {'class': 'adminContentBlockForm__form'}})}}
+
+{% if content_block.type == 'photo' %}
+	{{ form_row(form.photo) }}
+{% else %}
+	{{ form_row(form.textContent) }}
+{% endif %}
+
+<button class="adminContentBlockForm__form__confirmBttn" type="submit">
+	{{ button_label|default('Save') }}
+</button>
+
+{{ form_end(form) }}

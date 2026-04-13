@@ -1,0 +1,72 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+.adminContentBlockForm {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 40px 0;
+
+    gap: 20px;
+
+    &__title {
+
+        font-size: $lg-fontsize;
+        text-align: center;
+
+        span {
+            color: $primary-color;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 10px;
+
+        &__row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+
+            &__label {
+                font-size: $md-fontsize;
+                font-weight: bold;
+            }
+
+            &__input {
+
+                &.textField {
+                    text-align: center;
+                    height: 200px;
+                    padding: 5px;
+                }
+
+                &.photoField {}
+            }
+        }
+
+        &__confirmBttn {
+
+            font-size: $lg-fontsize;
+
+            border-style: none;
+            background-color: $primary-color;
+            color: $secondary-color;
+
+            padding: 5px 15px;
+            border-radius: 5px;
+
+
+        }
+
+    }
+
+
+}

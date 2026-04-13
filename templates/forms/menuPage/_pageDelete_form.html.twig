@@ -1,4 +1,4 @@
-<form class="admin-form__delete-form" method="post" action="{{ path('app_menu_page_delete', {'id': menu_page.id}) }}" onsubmit="return confirm('Cette page sera définitivement supprimer de la base de données. Confirmer la suppression (Les catégories associées seront mis dans la page de stockage)?');">
+<form class="admin-menu-form__delete-form" method="post" action="{{ path('app_menu_page_delete', {'id': menu_page.id}) }}" onsubmit="return confirm('Cette page sera définitivement supprimer de la base de données. Confirmer la suppression (Les catégories associées seront mis dans la page de stockage)?');">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ menu_page.id) }}">
-	<button class="admin-form__delete-form__bttn page-theme">Supprimer cette page</button>
+	<button class="admin-menu-form__delete-form__bttn page-theme">Supprimer cette page</button>
 </form>

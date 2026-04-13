@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<title>Reservation index</title>
+
+{% block body %}
+    <h1>Reservation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Surname</th>
+                <th>PartySize</th>
+                <th>PhoneNumber</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.firstname }}</td>
+                <td>{{ reservation.surname }}</td>
+                <td>{{ reservation.partySize }}</td>
+                <td>{{ reservation.phoneNumber }}</td>
+                <td>{{ reservation.email }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservation_new') }}">Create new</a>
+{% endblock %}

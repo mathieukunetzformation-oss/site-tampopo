@@ -102,7 +102,7 @@ final class MenuPageController extends AbstractController
     }
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/page/fetchAll', name: 'admin_fetch_all_pages', methods: ['GET'])]
+    #[Route('/page/fetch-all', name: 'admin_fetch_all_pages', methods: ['GET'])]
     public function getAllPages(Request $request, MenuPageRepository $pageRepo): JsonResponse
     {
         $pageId = $request->query->get('pageId'); // ?pageId=x
@@ -206,6 +206,7 @@ final class MenuPageController extends AbstractController
     /**
      * Reorder categories from one or two pages
      */
+    #[IsGranted('ROLE_ADMIN')]
     public function reorderPages(MenuPageRepository $pageRepo)
     {
         $pages = $pageRepo->findBy(

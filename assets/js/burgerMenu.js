@@ -34,7 +34,6 @@ export function initializeBurgerMenu() {
     burgerMenu.classList.toggle("hidden", screenWidth >= getBreakpointWidth('small-laptop'));
     window.addEventListener('screenWidthChanged', (e) => {
         burgerMenu.classList.toggle("hidden", e.detail >= getBreakpointWidth('small-laptop'));
-        console.log("here" + (e.detail >= getBreakpointWidth('small-laptop')))
     })
 }
 

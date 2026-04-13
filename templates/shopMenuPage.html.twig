@@ -15,17 +15,33 @@
 
 {% block main %}
 	<main class="shopMenu" data-page-type="shopMenuPage">
+
 		<div class="shopMenu__focus hidden" id="productGalleryFocus">
 			<div class="shopMenu__focus__img" alt="" id="focusImg"></div>
 			<p class="shopMenu__focus__title" id="focusTitle">Exemple Titre</p>
 			<p class="shopMenu__focus__description" id="focusDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus voluptates inventore tenetur quisquam eius non harum sequi vel ratione, dicta quasitaque voluptatum ducimus odit natus tempora earum? Fuga, doloremque.</p>
 			<i class="shopMenu__focus__closeBttn fa-solid fa-xmark" id="focusCloseBttn"></i>
 		</div>
+
+		<div class="shopMenu__filterBar">
+			{% if menuPages|length > 0 %}
+				<button class="shopMenu__filterBar__all filterBttn selected" data-page-id="all">Tous nos produits</button>
+				<div class="shopMenu__filterBar__bttns">
+					{% for page in menuPages %}
+						{% if page.isPageIsDisplayed() %}
+							<button class="shopMenu__filterBar__bttns__item filterBttn" data-page-id={{page.getId()}}>{{page.getTitle()}}</button>
+						{% endif %}
+					{% endfor %}
+				</div>
+
+			{% endif %}
+		</div>
+
 		<div class="shopMenu__title"></div>
 		{% if menuPages|length > 0 %}
 			{% for page in menuPages %}
 				{% if page.isPageIsDisplayed() %}
-					<div class="shopMenu__page">
+					<div class="shopMenu__page" data-page-id={{page.getId()}}>
 						{% if page.isTitleIsDisplayed() %}
 							<h2 class="shopMenu__page__title">{{page.getTitle()}}</h2>
 						{% endif %}
@@ -47,31 +63,36 @@
 													{% if product.getPhoto() %}
 														<div class="shopMenu__page__category__product__photo productPhoto" style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
 													{% endif %}
-													<h4 class="shopMenu__page__category__product__title">{{product.getTitle()}}
-														{% if product.getPhoto() %}
-															<i class="fa-solid fa-camera photoPreview" data-photo-filename="{{ product.photo }}" data-title="{{ product.title }}" data-description="{{ product.description }}"></i>
-															<div style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
-														{% endif %}
-													</h4>
-													<p class="shopMenu__page__category__product__description">{{product.getDescription()}}</p>
-													{% set offers = product.getProductOffers() %}
+													<div class="shopMenu__page__category__product__title">
+														<h4 class="shopMenu__page__category__product__title__text">{{product.getTitle()}}
+															{% if product.getPhoto() %}
+																<i class="fa-solid fa-camera photoPreview" data-photo-filename="{{ product.photo }}" data-title="{{ product.title }}" data-description="{{ product.description }}"></i>
+															{% endif %}
+														</h4>
 
-													{% if offers|length > 0 %}
-														{% if offers|length == 1 and offers[0].getQuantity() <= 1 %}
-															<p class="shopMenu__page__category__product__offer">
-																{{ offers[0].getPrice() }}€
-															</p>
-														{% else %}
-															{% for offer in offers %}
-																<p class="shopMenu__page__category__product__offer">
-																	x
-																	{{ offer.getQuantity() }}
-																	/
-																	{{ offer.getPrice() }}€
-																</p>
-															{% endfor %}
+														{% set offers = product.getProductOffers() %}
+
+														{% if offers|length > 0 %}
+															<div class="shopMenu__page__category__product__title__offer">
+																{% if offers|length == 1 and offers[0].getQuantity() <= 1 %}
+																	<p class="shopMenu__page__category__product__title__offer__item">
+																		{{ offers[0].getPrice() }}€
+																	</p>
+																{% else %}
+																	{% for offer in offers %}
+																		<p class="shopMenu__page__category__product__title__offer__item">
+																			x
+																			{{ offer.getQuantity() }}
+																			/
+																			{{ offer.getPrice() }}€
+																		</p>
+																	{% endfor %}
+																{% endif %}
+															</div>
 														{% endif %}
-													{% endif %}
+													</div>
+													<p class="shopMenu__page__category__product__description">{{product.getDescription()}}</p>
+
 												</div>
 												{# end of product #}
 											{% endfor %}

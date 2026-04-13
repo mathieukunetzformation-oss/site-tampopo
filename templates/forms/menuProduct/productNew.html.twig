@@ -7,15 +7,15 @@
 {% block main %}
 	<main data-page-type="newProductForm" data-category-id={{form.vars.data.category ? form.vars.data.category.id : 'null'}}>
 
-		<section class="admin-form">
-			<h1 class="admin-form__title">Création d'un
+		<section class="admin-menu-form">
+			<h1 class="admin-menu-form__title">Création d'un
 				<span>
 					nouveau produit</span>
 			</h1>
 
 			{{ include('forms/menuProduct/_productForm.html.twig', {'button_label': 'Confirmer la création du produit'}) }}
 
-			<a class="admin-form__return-bttn" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
+			<a class="admin-menu-form__return-bttn" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
 
 		</section>
 	</main>

@@ -50,7 +50,7 @@
                 width: 100px;
 
                 i {
-                    font-size: 80px; // initially same as container
+                    font-size: 80px; //exceptionnally magic number to scale the icon
 
                     display: flex; // for proper centering
                     align-items: center;

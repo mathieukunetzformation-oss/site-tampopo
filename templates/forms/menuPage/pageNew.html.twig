@@ -7,15 +7,15 @@
 {% block main %}
 	<main data-page-type="newPageForm">
 
-		<section class="admin-form">
-			<h1 class="admin-form__title">Création d'une
+		<section class="admin-menu-form">
+			<h1 class="admin-menu-form__title">Création d'une
 				<span class="page-theme">
 					nouvelle page</span>
 			</h1>
 
 			{{ include('forms/menuPage/_pageForm.html.twig', {'button_label': 'Confirmer la création de la page'}) }}
 
-			<a class="admin-form__return-bttn page-theme" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
+			<a class="admin-menu-form__return-bttn page-theme" href="{{ path('app_adminMenuPage') }}">Retourner au menu</a>
 
 		</section>
 	</main>

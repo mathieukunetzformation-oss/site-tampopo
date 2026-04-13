@@ -1,13 +1,13 @@
-{{ form_start(form, {'attr': {'class': 'admin-form__container'}}) }}
+{{ form_start(form, {'attr': {'class': 'admin-menu-form__container'}}) }}
 
-<div class="admin-form__container__edit">
+<div class="admin-menu-form__container__edit">
 
 	{{ form_row(form.title) }}
 
 	{% if form.vars.data.photo %}
-		<img class="admin-form__container__edit__photoPreview" src="{{ asset('media/photos/produits/' ~ form.vars.data.photo) }}" alt="Photo du produit">
+		<img class="admin-menu-form__container__edit__photoPreview" src="{{ asset('media/photos/produits/' ~ form.vars.data.photo) }}" alt="Photo du produit">
 	{% else %}
-		<div class="admin-form__container__edit__photoPreview photoNotFound">Aucune photo n'a été trouvée dans la base de données pour ce produit.</div>
+		<div class="admin-menu-form__container__edit__photoPreview photoNotFound">Aucune photo n'a été trouvée dans la base de données pour ce produit.</div>
 	{% endif %}
 
 	{{ form_row(form.photo) }}
@@ -15,25 +15,25 @@
 
 	{{ form_row(form.description) }}
 
-	<div class="admin-form__container__edit__row productOffersField productOffers" data-prototype="{{ form_widget(form.productOffers.vars.prototype)|e('html_attr') }}" data-index="{{ form.productOffers|length > 0 ? form.productOffers|last.vars.name + 1 : 0 }}">
+	<div class="admin-menu-form__container__edit__row productOffersField productOffers" data-prototype="{{ form_widget(form.productOffers.vars.prototype)|e('html_attr') }}" data-index="{{ form.productOffers|length > 0 ? form.productOffers|last.vars.name + 1 : 0 }}">
 		<h3>Offres</h3>
 		{% for offerForm in form.productOffers %}
-			<div class="admin-form__container__edit__row__offerItem">
+			<div class="admin-menu-form__container__edit__row__offerItem">
 				{{ form_row(offerForm.price) }}
 				{{ form_row(offerForm.quantity) }}
-				<i class="admin-form__container__edit__row__offerItem__deleteBttn delete-offer-bttn fa-solid fa-delete-left"></i>
+				<i class="admin-menu-form__container__edit__row__offerItem__deleteBttn delete-offer-bttn fa-solid fa-delete-left"></i>
 			</div>
 		{% endfor %}
 
 	</div>
-	<button class="admin-form__container__edit__row add-offer-bttn" type="button" data-collection-holder-class="productOffers">Ajouter une offre</button>
+	<button class="admin-menu-form__container__edit__row add-offer-bttn" type="button" data-collection-holder-class="productOffers">Ajouter une offre</button>
 
 	{{ form_row(form.category) }}
 	{{ form_row(form.orderInCategory) }}
 
 </div>
 
-<button class="admin-form__container__confirm-edit-bttn">
+<button class="admin-menu-form__container__confirm-edit-bttn">
 	{{ button_label|default('Save') }}
 </button>
 

@@ -27,8 +27,7 @@ export function inititializeMenuProductForm(mode) {
 
         console.log("Fetching pages");
 
-
-        fetch('/admin/menu/page/fetchAll')
+        fetch('/admin/menu/page/fetch-all')
             .then(response => response.json())
             .then(data => {
 
@@ -41,7 +40,7 @@ export function inititializeMenuProductForm(mode) {
                     const optionGroup = document.createElement('optgroup');
                     optionGroup.label = page.title;
 
-                    fetch('/admin/menu/category/fetchById/' + page.id)
+                    fetch('/admin/menu/category/fetch-by-page/' + page.id)
                         .then(response => response.json())
                         .then(data => {
 
@@ -90,7 +89,7 @@ export function inititializeMenuProductForm(mode) {
         if (!categoryId) return;
 
 
-        let route = '/admin/menu/product/by-category/' + categoryId + '?productId=' + productId;
+        let route = '/admin/menu/product/fetch-by-category/' + categoryId + '?productId=' + productId;
 
         fetch(route)
             .then(response => response.json())
@@ -109,7 +108,6 @@ export function inititializeMenuProductForm(mode) {
                     for (let index = 0; index < products.length; index++) {
 
                         let isDisplayedProduct = (mode === "edit") ? initialCategoryIsDisplayed && (currentProduct.id === products[index].id) : false;
-                        console.log(isDisplayedProduct + " " + index);
 
                         if (isDisplayedProduct) {
 
@@ -253,7 +251,7 @@ export function inititializeMenuProductForm(mode) {
 
         const newFormElement = tempDiv.firstChild; //we now extract the htlm element obtained from the string (so we can change classes and stuff)
 
-        newFormElement.classList.add('admin-form__container__edit__row__offerItem');
+        newFormElement.classList.add('admin-menu-form__container__edit__row__offerItem');
 
         collectionHolder.appendChild(newFormElement);
 
@@ -262,7 +260,7 @@ export function inititializeMenuProductForm(mode) {
 
         //add delete button
         const deleteBttn = document.createElement('i');
-        deleteBttn.classList = "admin-form__container__edit__row__offerItem__deleteBttn delete-offer-bttn fa-solid fa-delete-left";
+        deleteBttn.classList = "admin-menu-form__container__edit__row__offerItem__deleteBttn delete-offer-bttn fa-solid fa-delete-left";
         newFormElement.appendChild(deleteBttn);
         deleteBttn.addEventListener("pointerdown", () => {
             newFormElement.remove();
@@ -273,7 +271,7 @@ export function inititializeMenuProductForm(mode) {
     function removeFormFromCollection(e) {
 
         if (e.target.classList.contains('delete-offer-bttn')) {
-            e.target.closest('.admin-form__container__edit__row__offerItem').remove();
+            e.target.closest('.admin-menu-form__container__edit__row__offerItem').remove();
         }
 
     }
