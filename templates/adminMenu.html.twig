@@ -16,7 +16,7 @@
 			{% endfor %}
 		{% endfor %}
 
-		<a class="saveBttn hidden">Sauvegarder les changements</a>
+		<button class="saveBttn hidden" data-csrf-token="{{ csrf_token('menu_reorder') }}">Sauvegarder les changements</button>
 
 		<div class="adminMenu__clientView">
 			<a class="adminMenu__clientView__bttn" href="{{ path('app_shop_menu') }}" target="_blank" rel="noopener noreferrer">

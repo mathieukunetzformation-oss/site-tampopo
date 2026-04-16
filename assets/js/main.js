@@ -2,24 +2,25 @@
 import { inititializeGlobalVariables, screenWidth, getBreakpointWidth } from './helpers.js';
 
 //Shop
-import { initializeProductGallery } from './productGallery.js';
+import { initializeProductGallery } from './shop/productGallery.js';
 
 //Menu filter
-import { initializeMenuFilter } from './menuFilter.js';
+import { initializeMenuFilter } from './shop/menuFilter.js';
 
 //Burger menu
-import { initializeTopBar, initializeBurgerMenu } from './burgerMenu.js';
+import { initializeTopBar, initializeBurgerMenu } from './shop/burgerMenu.js';
 
 //Admin
-import { initializeDragAndDropMenu } from './dragNDropMenu.js';
+import { initializeDragAndDropMenu } from './admin/menu/dragNDropMenu.js';
 
 //Forms
-import { inititializeMenuProductForm } from './menuProductForm.js';
-import { inititializeMenuCategoryForm } from './menuCategoryForm.js';
-import { inititializeMenuPageForm } from './menuPageForm.js';
+import { inititializeMenuProductForm } from './admin/menu/menuProductForm.js';
+import { inititializeMenuCategoryForm } from './admin/menu/menuCategoryForm.js';
+import { inititializeMenuPageForm } from './admin/menu/menuPageForm.js';
 
 //Reservations
-import { initializeReservationIndex } from './adminReservationIndex.js';
+import { initializeReservationIndex } from './admin/reservation/adminReservationIndex.js';
+import { initializeAdminReservationForm } from './admin/reservation/adminReservationForm.js';
 
 
 document.addEventListener('turbo:load', () => {
@@ -29,7 +30,7 @@ document.addEventListener('turbo:load', () => {
     navbar = document.getElementById("navbar");
 
     inititializeGlobalVariables();
-    addScrollEventListener();
+    // addScrollEventListener();
 
     switch (pageType) {
         //Landing page

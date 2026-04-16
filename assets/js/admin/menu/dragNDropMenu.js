@@ -520,8 +520,10 @@ function cacheSaveButton() {
 
         console.log("Adding saving event to button");
 
-        saveButton.addEventListener("pointerdown", (e) => {
-            saveMenuStructure();
+        const csrfToken = saveButton.dataset.csrfToken;
+
+        saveButton.addEventListener("click", (e) => {
+            saveMenuStructure(csrfToken);
         })
     }
     else {
@@ -529,7 +531,7 @@ function cacheSaveButton() {
     }
 }
 
-function saveMenuStructure() {
+function saveMenuStructure(csrfToken) {
 
     console.log("Saving")
     const menuElem = document.querySelector(".adminMenu");
@@ -592,6 +594,7 @@ function saveMenuStructure() {
     });
 
     const data = {
+        csrfToken,
         pages,
         categories,
         products

@@ -10,6 +10,12 @@ class ContentBlockFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $welcomeMsgBlock = new ContentBlock();
+        $welcomeMsgBlock->setName("Message d'accueil");
+        $welcomeMsgBlock->setType("text");
+        $welcomeMsgBlock->setTextContent("Nous serons fermés du 20 au 25 mars.");
+        $manager->persist($welcomeMsgBlock);
+
         $hoursBlock = new ContentBlock();
         $hoursBlock->setName("Horaires");
         $hoursBlock->setType("text");

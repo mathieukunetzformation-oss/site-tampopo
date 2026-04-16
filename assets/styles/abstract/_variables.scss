@@ -1,10 +1,14 @@
-// $main-font:;
+//Colors
 $primary-color : #65162B;
 $secondary-color : #FDEC92;
 $page-color : #164f65;
 $category-color : #2e1665;
 
 $bg-color : #fff8d6;
+
+//Font
+$main-font : "Kodchasan",
+sans-serif;
 
 //Font sizes
 $xs-fontsize : 0.875rem;
@@ -13,24 +17,3 @@ $md-fontsize : 1.125rem;
 $lg-fontsize : 1.25rem;
 $xl-fontsize : 1.75rem;
 $xxl-fontsize : 3rem;
-
-//Breakpoints for screen sizes for responsive
-$breakpoints: (
-    // phones
-    xs: 0,
-
-    // small tablets / large phones
-    sm: 576px,
-
-    // tablets
-    md: 768px,
-
-    // small laptops
-    lg: 992px,
-
-    // desktops
-    xl: 1200px,
-
-    // large screens
-    xxl: 1400px
-);

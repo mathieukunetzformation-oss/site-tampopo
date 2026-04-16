@@ -11,7 +11,7 @@
 		{% block stylesheets %}
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-			<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 		{% endblock %}
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		{% block javascripts %}
@@ -48,9 +48,9 @@
 						</div>
 
 						<div class="shopHeader__navbar__burger" id="burgerMenu">
-							<a class="shopHeader__navbar__burger__bttn">
+							<button class="shopHeader__navbar__burger__bttn" aria-controls="burgerMenu">
 								<i class="fa-solid fa-bars" id="burgerIcon"></i>
-							</a>
+							</button>
 							{% if app.request.attributes.get('_route') != 'app_shop' %}
 								<a class="shopHeader__navbar__burger__link collapsed" href="{{ path('app_shop') }}">
 									<p>Accueil</p>
@@ -110,7 +110,6 @@
 					<div class="shopLanding__productGallery__presentation">
 						<img class="shopLanding__productGallery__presentation__photo" src="{{ asset('media/photos/devanture.jpg') }}" alt="Photo devanture restaurant Tampopo">
 						<div class="shopLanding__productGallery__presentation__text">
-
 							<p class="shopLanding__productGallery__presentation__text__paragraph">Nous mettons à l’honneur l’authenticité et le
 								<strong>savoir-faire artisanal</strong>
 								à travers nos

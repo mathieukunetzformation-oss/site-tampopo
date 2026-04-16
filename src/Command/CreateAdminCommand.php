@@ -33,11 +33,10 @@ class CreateAdminCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $username = $io->ask('Pseudo'); //lors de l'execution de la commande Pseudo est demandé
-        $password = $io->ask('Mot de passe'); //mot de passe est demandé
+        $username = $io->ask('Pseudo'); //ask for pseudo
+        $password = $io->ask('Mot de passe'); //ask for password
 
-        // Vérifier si l'utilisateur existe déjà
-        $existingUser = $this->entityManager
+        $existingUser = $this->entityManager //check if user already exists
             ->getRepository(User::class)
             ->findOneBy(['username' => $username]);
 
@@ -50,7 +49,7 @@ class CreateAdminCommand extends Command
         $user->setUsername($username);
         $user->setRoles(['ROLE_ADMIN']);
 
-        $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $password); //hash the password
         $user->setPassword($hashedPassword);
 
         $this->entityManager->persist($user);

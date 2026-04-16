@@ -1,5 +1,5 @@
 
-import { screenWidth, getBreakpointWidth, applyFullScreenEffect, fullScreenEffectsDiv } from './helpers.js';
+import { screenWidth, getBreakpointWidth, applyFullScreenEffect, fullScreenEffectsDiv } from '../helpers.js';
 
 //#region Burger Menu
 let burgerMenu;
