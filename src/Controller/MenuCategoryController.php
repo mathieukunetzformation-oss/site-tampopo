@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/menu/category')]
 final class MenuCategoryController extends AbstractController
 {
@@ -188,8 +190,13 @@ final class MenuCategoryController extends AbstractController
 
 
     #[Route('/delete/{id}', name: 'app_menu_category_delete', methods: ['POST'])]
-    public function delete(Request $request, MenuCategory $menuCategory, MenuCategoryRepository $categoryRepo, MenuProductRepository $productRepo, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        MenuCategory $menuCategory,
+        MenuCategoryRepository $categoryRepo,
+        MenuProductRepository $productRepo,
+        EntityManagerInterface $entityManager
+    ): Response {
         if ($menuCategory->isProtected()) {
 
             $this->addFlash('error', "Cette catégorie ne peut pas être supprimée car il s'agit de la catégorie de stockage.");

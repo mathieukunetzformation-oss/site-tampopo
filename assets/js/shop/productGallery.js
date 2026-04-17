@@ -1,4 +1,4 @@
-import { screenWidth, getBreakpointWidth, applyFullScreenEffect, fullScreenEffectsDiv } from './helpers.js';
+import { screenWidth, getBreakpointWidth, applyFullScreenEffect, fullScreenEffectsDiv } from '../helpers.js';
 
 let currentFocusId = 0;
 let switchFocusCd = 200;

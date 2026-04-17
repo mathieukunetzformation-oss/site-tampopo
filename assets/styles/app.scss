@@ -1,15 +1,17 @@
+//assets/styles/app.scss
+
+//General
 @use 'abstract/base';
 @use 'abstract/fullScreenEffect';
 
-@use 'shop/main';
+//Shop
 @use 'shop/shopLanding';
+
 @use 'shop/shopHeader';
 @use 'shop/shopFooter';
 @use 'shop/shopMenu';
 
-@use 'sections/infos';
-@use 'sections/photoGallery';
-
+//Admin Dashboard
 @use 'admin/adminLogin';
 @use 'admin/adminMain';
 @use 'admin/adminHeader';
@@ -21,7 +23,7 @@
 
 @use 'admin/menu/adminMenuForms';
 
-@use 'admin/infos/adminContentForm';
 @use 'admin/infos/adminInfos';
+@use 'admin/infos/adminContentForm';
 
 @use 'admin/reservation/adminReservation';

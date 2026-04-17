@@ -32,7 +32,7 @@ class MenuCategoryFixtures extends Fixture implements DependentFixtureInterface
                 $category->setTitle($categoryTitle);
                 $category->setDescription("Ceci est un exemple de description pour la catégorie " . $categoryTitle);
                 $category->setDisplayAsGrid(false);
-                $category->setOrderInPage(($i + 1) * 10); // start order at 1
+                $category->setOrderInPage(($i + 1) * 10); // start order at 10
                 $category->setCategoryIsDisplayed($categoryCounter === 5 ? false : true);
                 $category->setPage($this->getReference('menu_page_' . $index, MenuPage::class));
                 $category->setIsProtected($categoryCounter === 5 ? true : false); //by default stock category is protected and cannot be deleted

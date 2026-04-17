@@ -18,7 +18,6 @@ $navbar-height-desktop : 65px;
     min-height: 100dvh;
     overflow: hidden;
 
-
     &::before {
         content: "";
         position: absolute;
@@ -80,7 +79,6 @@ $navbar-height-desktop : 65px;
             right: $burger-spacing;
             bottom: $burger-spacing;
 
-
             &__bttn {
 
                 display: flex;
@@ -103,6 +101,8 @@ $navbar-height-desktop : 65px;
                 cursor: pointer;
 
             }
+
+            &__links {}
 
             &__link {
                 display: flex;

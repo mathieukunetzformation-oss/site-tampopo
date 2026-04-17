@@ -41,7 +41,6 @@ class MenuProduct
     private ?MenuCategory $category = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-
     private ?string $photo = null;
 
     /**

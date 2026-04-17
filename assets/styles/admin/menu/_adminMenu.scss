@@ -119,6 +119,7 @@ $gap-between-pages: $dropZone-height-page + ($gap-product-dropZone * 2);
 
     &__clientView {
 
+        //link to menu client page
         align-self: center;
         display: flex;
         flex-direction: column;

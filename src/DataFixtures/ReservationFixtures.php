@@ -16,14 +16,14 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
         $surnames = ['Smith', 'Johnson', 'Brown', 'Taylor', 'Lee', 'Walker'];
 
         for ($i = 1; $i <= 26; $i++) {
-            if ($i === 13) continue; // skip table 13
+            if ($i === 13) continue; // skip table 13 because la restauration
 
             $table = $this->getReference(
                 'table_' . $i,
                 Table::class
             );
 
-            $numReservations = rand(1, 2);
+            $numReservations = rand(1, 2); //one or two reservations per table
 
             for ($r = 0; $r < $numReservations; $r++) {
                 $reservation = new Reservation();

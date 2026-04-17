@@ -15,10 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/menu')]
 final class MenuPageController extends AbstractController
 {
-    #[IsGranted('ROLE_ADMIN')]
+
+    /**
+     * Route to dashboard Menu page
+     */
     #[Route('', name: 'app_adminMenuPage', methods: ['GET'])]
     public function indexAdmin(MenuPageRepository $menuPageRepository): Response
     {
@@ -27,7 +31,9 @@ final class MenuPageController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    /**
+     * Route to reorder elements position upon AJAX fetch
+     */
     #[Route('/reorder', name: 'admin_menu_reorder', methods: ['POST'])]
     public function reorderMenu(
         Request $request,
@@ -41,6 +47,14 @@ final class MenuPageController extends AbstractController
         if (!$data) {
             return new JsonResponse(['error' => 'Invalid JSON'], 400);
         }
+        $data = json_decode($request->getContent(), true);
+
+        $token = $data['csrfToken'] ?? null;
+
+        if (!$this->isCsrfTokenValid('menu_reorder', $token)) {
+            return new JsonResponse(['error' => 'Invalid CSRF token'], 403);
+        }
+
         $pages = $data['pages'] ?? [];
         $categories = $data['categories'] ?? [];
         $products = $data['products'] ?? [];
@@ -101,7 +115,6 @@ final class MenuPageController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/page/fetch-all', name: 'admin_fetch_all_pages', methods: ['GET'])]
     public function getAllPages(Request $request, MenuPageRepository $pageRepo): JsonResponse
     {
@@ -138,7 +151,6 @@ final class MenuPageController extends AbstractController
         return $this->json($data);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/page/new', name: 'app_menu_page_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, MenuPageRepository $pageRepo): Response
     {
@@ -169,7 +181,6 @@ final class MenuPageController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/page/{id}/edit', name: 'app_menu_page_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MenuPage $menuPage, MenuPageRepository $pageRepo, EntityManagerInterface $entityManager): Response
     {
@@ -206,7 +217,6 @@ final class MenuPageController extends AbstractController
     /**
      * Reorder categories from one or two pages
      */
-    #[IsGranted('ROLE_ADMIN')]
     public function reorderPages(MenuPageRepository $pageRepo)
     {
         $pages = $pageRepo->findBy(
@@ -220,7 +230,6 @@ final class MenuPageController extends AbstractController
         }
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/page/delete/{id}', name: 'app_menu_page_delete', methods: ['POST'])]
     public function delete(Request $request, MenuPage $menuPage, MenuPageRepository $pageRepo, MenuCategoryRepository $categoryRepo, EntityManagerInterface $entityManager): Response
     {
