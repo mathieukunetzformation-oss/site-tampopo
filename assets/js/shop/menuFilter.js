@@ -28,7 +28,4 @@ export function initializeMenuFilter() {
             });
         });
     });
-
-
-
 }

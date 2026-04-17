@@ -41,7 +41,7 @@ class MenuProductType extends AbstractType
 
             ->add('description', TextareaType::class, array_merge([
                 'label' => 'Description du produit',
-                'required' => false,
+                'required' => false, //an empty description will not be displayed in the shop menu page
             ], $this->getFieldClasses('description')))
 
             ->add('productOffers', CollectionType::class, array_merge([
@@ -116,7 +116,9 @@ class MenuProductType extends AbstractType
         ]);
     }
 
-
+    /**
+     * Util function that apply the correct class to each row, label and input field
+     */
     private function getFieldClasses(string $field, string $secondClass = ""): array
     {
         return [
@@ -132,6 +134,9 @@ class MenuProductType extends AbstractType
         ];
     }
 
+    /**
+     * Util function that determine the correct choices to load before submitting form
+     */
     private function getOrderChoices(?MenuCategory $category): array
     {
         if (!$category) return [];

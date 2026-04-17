@@ -149,7 +149,6 @@ final class MenuProductController extends AbstractController
                         ]);
                     }
 
-                    $file->move($uploadDir, $fileName);
                     $menuProduct->setPhoto($fileName);
                 }
 

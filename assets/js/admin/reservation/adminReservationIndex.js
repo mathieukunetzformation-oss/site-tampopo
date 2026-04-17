@@ -1,5 +1,6 @@
 let dateInput;
 let dateError;
+let currentDateValue;
 
 export function initializeReservationIndex() {
 
@@ -7,16 +8,21 @@ export function initializeReservationIndex() {
     dateError = document.getElementById("dateError");
 
     dateInput.addEventListener("change", function () {
-        console.log("Date changed to:", this.value);
-        if (this.value) {
-            dateError.classList.toggle("hidden", true);
+        console.log("Date changed to:", dateInput.value);
+        dateInput.value = currentDateValue;
 
-            fetchReservationByDate(this.value); //add a date verification before passing it to the function
-        }
-        else {
-            dateError.classList.toggle("hidden", false);
-        }
+        // if (this.value) {
+        //     dateError.classList.toggle("hidden", true);
+
+        //     fetchReservationByDate(this.value); //add a date verification before passing it to the function
+        // }
+        // else {
+        //     dateError.classList.toggle("hidden", false);
+        // }
+
     })
+    currentDateValue = dateInput.value;
+    console.log("Date :", currentDateValue);
 
     dateError.classList.toggle("hidden", true);
 

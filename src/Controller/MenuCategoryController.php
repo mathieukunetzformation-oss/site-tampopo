@@ -190,8 +190,13 @@ final class MenuCategoryController extends AbstractController
 
 
     #[Route('/delete/{id}', name: 'app_menu_category_delete', methods: ['POST'])]
-    public function delete(Request $request, MenuCategory $menuCategory, MenuCategoryRepository $categoryRepo, MenuProductRepository $productRepo, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        MenuCategory $menuCategory,
+        MenuCategoryRepository $categoryRepo,
+        MenuProductRepository $productRepo,
+        EntityManagerInterface $entityManager
+    ): Response {
         if ($menuCategory->isProtected()) {
 
             $this->addFlash('error', "Cette catégorie ne peut pas être supprimée car il s'agit de la catégorie de stockage.");
