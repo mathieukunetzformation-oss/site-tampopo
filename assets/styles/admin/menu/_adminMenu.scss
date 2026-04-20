@@ -105,9 +105,7 @@ $gap-between-pages: $dropZone-height-page + ($gap-product-dropZone * 2);
     flex-direction: column;
     align-items: flex-start;
     gap: $gap-between-pages;
-
     width: 100vw;
-
     margin-bottom: 100px; //some space for the saveBttn
 
     &__title {
@@ -125,7 +123,6 @@ $gap-between-pages: $dropZone-height-page + ($gap-product-dropZone * 2);
         flex-direction: column;
         align-items: center;
         margin: 20px;
-
 
         &__bttn {
             display: flex;
@@ -153,6 +150,8 @@ $gap-between-pages: $dropZone-height-page + ($gap-product-dropZone * 2);
     }
 
     &__newBttn {
+        align-self: center;
+
         //new page button
         text-decoration: none;
         color: $page-color;

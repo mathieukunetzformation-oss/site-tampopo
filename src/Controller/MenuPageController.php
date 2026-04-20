@@ -47,7 +47,6 @@ final class MenuPageController extends AbstractController
         if (!$data) {
             return new JsonResponse(['error' => 'Invalid JSON'], 400);
         }
-        $data = json_decode($request->getContent(), true);
 
         $token = $data['csrfToken'] ?? null;
 

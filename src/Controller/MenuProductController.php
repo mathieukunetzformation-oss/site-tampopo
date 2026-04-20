@@ -38,13 +38,6 @@ final class MenuProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            // dd([
-            //     'submitted' => $form->isSubmitted(),
-            //     'valid' => $form->isValid(),
-            //     'data' => $form->getData(),
-            //     'errors' => $form->getErrors(true, true),
-            // ]);
-
             if ($form->isValid()) {
                 $file = $form->get('photo')->getData();
 
