@@ -4,9 +4,12 @@
 
 .adminMenu__page {
 
+    display: flex;
+    flex-direction: column;
+    align-self: center;
     margin: 0 $page-margin;
     width: calc(100% - #{$page-margin * 2});
-
+    max-width: 800px;
     position: relative;
 
     &__dropZone {

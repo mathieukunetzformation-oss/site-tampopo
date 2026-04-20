@@ -61,12 +61,14 @@
 											{% for product in category.getProducts() %}
 												<div class="shopMenu__page__category__product">
 													{% if product.getPhoto() %}
-														<div class="shopMenu__page__category__product__photo productPhoto" style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
+														<div class="shopMenu__page__category__product__photo productPhoto" 
+														style="background-image: url('/media/photos/produits/{{ product.photo }}');"></div>
 													{% endif %}
 													<div class="shopMenu__page__category__product__title">
 														<h4 class="shopMenu__page__category__product__title__text">{{product.getTitle()}}
 															{% if product.getPhoto() %}
-																<i class="fa-solid fa-camera photoPreview" data-photo-filename="{{ product.photo }}" data-title="{{ product.title }}" data-description="{{ product.description }}"></i>
+																<i class="fa-solid fa-camera photoPreview" data-photo-filename="{{ product.photo }}" 
+																data-title="{{ product.title }}" data-description="{{ product.description }}"></i>
 															{% endif %}
 														</h4>
 

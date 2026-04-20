@@ -5,7 +5,7 @@
 	{{ form_row(form.title) }}
 
 	{% if form.vars.data.photo %}
-		<img class="admin-menu-form__container__edit__photoPreview" src="{{ asset('media/photos/produits/' ~ form.vars.data.photo) }}" alt="Photo du produit">
+		<img class="admin-menu-form__container__edit__photoPreview" src="{{ asset('media/photos/products/' ~ form.vars.data.photo) }}" alt="Photo du produit">
 	{% else %}
 		<div class="admin-menu-form__container__edit__photoPreview photoNotFound">Aucune photo n'a été trouvée dans la base de données pour ce produit.</div>
 	{% endif %}
